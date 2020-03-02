@@ -1,39 +1,38 @@
 package com.esiea.tp4A.domain;
 
-public interface Position {
-	 	int getX();
-	    Direction getDirection();
-		int getY();
-	    
-	    static Position of(int x, int y, Direction direction) {
-	        return new FixedPosition(x, y, direction);
-	    }
-	    
-	    final class FixedPosition implements Position {
+public interface Position {    int getX();
+    int getY();
+    Direction getDirection();
 
-	        private final int x;
-	        private final int y;
-	        private final Direction direction;
+    static Position of(int x, int y, Direction direction) {
+        return new FixedPosition(x, y, direction);
+    }
 
-	        public FixedPosition(int x, int y, Direction direction) {
-	            this.x = x;
-	            this.y = y;
-	            this.direction =direction;
-	        }
+    final class FixedPosition implements Position {
 
-	        @Override
-	        public int getX() {
-	            return x;
-	        }
+        private final int x;
+        private final int y;
+        private final Direction direction;
 
-	        @Override
-	        public int getY() {
-	            return y;
-	        }
-	        
-	        @Override 
-	        public Direction getDirection() {
-	        	return direction;
-	        }
-	    }
+        public FixedPosition(int x, int y, Direction direction) {
+            this.x = x;
+            this.y = y;
+            this.direction = direction;
+        }
+
+        @Override
+        public int getX() {
+            return x;
+        }
+
+        @Override
+        public int getY() {
+            return y;
+        }
+
+        @Override
+        public Direction getDirection() {
+            return direction;
+        }
+    }
 }
