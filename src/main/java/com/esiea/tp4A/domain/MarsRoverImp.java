@@ -15,15 +15,15 @@ public class MarsRoverImp implements MarsRover {
 	public Position move(String command) {
 		switch(command){
 			case "f":
-				if (direction.equals("NORTH")) {
+				if (direction.equals(Direction.NORTH)) {
 					this.y += 1;
 				}
-				if (direction.equals("SOUTH")) {
+				if (direction.equals(Direction.SOUTH)) {
 					this.y -= 1;
 				}
-				if (direction.equals("EAST")) {
+				if (direction.equals(Direction.EAST)) {
 					this.x += 1;
-				}if (direction.equals("WEST")) {
+				}if (direction.equals(Direction.WEST)) {
 					this.x -= 1;
 				}
 				break;
@@ -38,6 +38,7 @@ public class MarsRoverImp implements MarsRover {
 				break;
 				
 		}
-		return Position.of(x, y, Direction.NORTH);
+		position=Position.of(x, y, direction);
+		return position;
 	}
 }
