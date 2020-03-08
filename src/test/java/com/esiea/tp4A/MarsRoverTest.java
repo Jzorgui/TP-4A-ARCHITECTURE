@@ -21,9 +21,7 @@ public class MarsRoverTest {
 
 	@Test
 	void moveForward() {
-		Scanner sc=new Scanner(System.in);
-		String command=sc.nextLine();
-		sc.close();
+		String command="f";
 		marsrover.move(command);
 		
 		
@@ -34,6 +32,7 @@ public class MarsRoverTest {
 		Assertions.assertThat(marsrover.getPosition())
 			.isEqualTo(Position.of(0, 1, Direction.NORTH));
 	}
+	
 
 }
  
