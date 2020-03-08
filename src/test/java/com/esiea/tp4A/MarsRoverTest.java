@@ -27,6 +27,8 @@ public class MarsRoverTest {
 		
 		System.out.println("   marsRoverForward   :\n x : "+marsRoverForward.getPosition().getX() +" y : "+ marsRoverForward.getPosition().getY()+" Direction : " 
 							+ marsRoverForward.getPosition().getDirection());
+
+
 		
 		
 		Assertions.assertThat(marsRoverForward.getPosition())
