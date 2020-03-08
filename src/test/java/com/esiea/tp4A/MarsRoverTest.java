@@ -16,23 +16,21 @@ import org.junit.jupiter.api.Test;
 
 public class MarsRoverTest {
 
-	private MarsRoverImp marsrover=new MarsRoverImp();
+	private MarsRoverImp marsRoverForward=new MarsRoverImp();
 
 
 	@Test
 	void moveForward() {
 		String command="f";
-		marsrover.move(command);
+		marsRoverForward.move(command);
 		
 		
-		System.out.println(" x : "+marsrover.getPosition().getX() +" y : "+ marsrover.getPosition().getY()+" Direction : " 
-							+ marsrover.getPosition().getDirection());
+		System.out.println("   marsRoverForward   :\n x : "+marsRoverForward.getPosition().getX() +" y : "+ marsRoverForward.getPosition().getY()+" Direction : " 
+							+ marsRoverForward.getPosition().getDirection());
 		
 		
-		Assertions.assertThat(marsrover.getPosition())
+		Assertions.assertThat(marsRoverForward.getPosition())
 			.isEqualTo(Position.of(0, 1, Direction.NORTH));
 	}
-	
-
 }
  
