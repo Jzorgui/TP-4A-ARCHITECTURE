@@ -35,6 +35,18 @@ public class MarsRoverTest {
 			.containsExactly(0,-1,Direction.NORTH);
 	}
 	
+	private MarsRoverImp marsRoverEast=new MarsRoverImp();
+	@Test
+	void changeToEast() {
+		String command="r";
+		
+
+		Assertions.assertThat(marsRoverEast.move(command))
+			.as("looking to east")
+			.extracting(Position::getX,Position::getY,Position::getDirection)
+			.containsExactly(0,0,Direction.EAST);
+	}
+	
 	
 	
 
