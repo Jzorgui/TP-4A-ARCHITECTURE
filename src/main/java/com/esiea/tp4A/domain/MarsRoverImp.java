@@ -16,29 +16,60 @@ public class MarsRoverImp implements MarsRover {
 		switch (command) {
 		case "f":
 			if (direction.equals(Direction.NORTH)) {
-				this.y += 1;
-			}
-			if (direction.equals(Direction.SOUTH)) {
-				this.y -= 1;
-			}
-			if (direction.equals(Direction.EAST)) {
-				this.x += 1;
-			}
-			if (direction.equals(Direction.WEST)) {
-				this.x -= 1;
+				if (this.y < 50) {
+					this.y += 1;
+				} else if (this.y == 50) {
+					this.y = -49;
+				}
+			} else if (direction.equals(Direction.SOUTH)) {
+				if (this.y > -50) {
+					this.y -= 1;
+				} else if (this.y == -50) {
+					this.y = 49;
+				}
+			} else if (direction.equals(Direction.EAST)) {
+				if (this.x < 50) {
+					this.x += 1;
+				} else if (this.x == 50) {
+					this.x = -49;
+				}
+			} else if (direction.equals(Direction.WEST)) {
+				if (this.x > -50) {
+					this.x -= 1;
+				} else if (this.x == -50) {
+					this.x = 49;
+				}
+
 			}
 			break;
 		case "b":
 			if (direction.equals(Direction.NORTH)) {
-				this.y -= 1;
+				if (this.y > -50) {
+					this.y -= 1;
+				} else if (this.y == -50) {
+					this.y = 49;
+				}
 			} else if (direction.equals(Direction.SOUTH)) {
-				this.y += 1;
+				if (this.y < 50) {
+					this.y += 1;
+				} else if (this.y == -50) {
+					this.y = 49;
+				}
 			} else if (direction.equals(Direction.EAST)) {
-				this.x -= 1;
+				if (this.x > -50) {
+					this.x -= 1;
+				} else if (this.x == -50) {
+					this.x = 49;
+				}
 			} else if (direction.equals(Direction.WEST)) {
-				this.x += 1;
+				if (this.x > 50) {
+					this.x += 1;
+				} else if (this.x == 50) {
+					this.x = -49;
+				}
 			}
 			break;
+
 		case "l":
 			if (direction.equals(Direction.NORTH)) {
 				this.direction = Direction.WEST;
