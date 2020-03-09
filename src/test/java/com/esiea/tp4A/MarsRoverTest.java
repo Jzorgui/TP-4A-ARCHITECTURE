@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 public class MarsRoverTest {
 
 	private MarsRoverImp marsRoverForward=new MarsRoverImp();
-
-
 	@Test
 	void moveForward() {
 		String command="f";
@@ -24,6 +22,20 @@ public class MarsRoverTest {
 			.extracting(Position::getX,Position::getY,Position::getDirection)
 			.containsExactly(0,1,Direction.NORTH);
 	}
+	
+	private MarsRoverImp marsRoverBack=new MarsRoverImp();
+	@Test
+	void moveBackward() {
+		String command="b";
+		
+
+		Assertions.assertThat(marsRoverBack.move(command))
+			.as("moving backward")
+			.extracting(Position::getX,Position::getY,Position::getDirection)
+			.containsExactly(0,-1,Direction.NORTH);
+	}
+	
+	
 	
 
 }
