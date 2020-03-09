@@ -54,11 +54,26 @@ public class MarsRoverTest {
 		
 
 		Assertions.assertThat(marsRoverWest.move(command))
-			.as("looking to east")
+			.as("looking to west")
 			.extracting(Position::getX,Position::getY,Position::getDirection)
 			.containsExactly(0,0,Direction.WEST);
 	}
 	
+	private MarsRoverImp marsRoverPlanet=new MarsRoverImp();
+	@Test
+	void moveForwardOnEndOfGrid() {
+		String command="f";
+		
+		// We move the rover  times before
+		for (int i=0;i<50;i++) {
+			marsRoverPlanet.move(command);
+		}
+
+		Assertions.assertThat(marsRoverPlanet.move(command))
+			.as("looking to east")
+			.extracting(Position::getX,Position::getY,Position::getDirection)
+			.containsExactly(0,-49,Direction.NORTH);
+	}
 	
 	
 
