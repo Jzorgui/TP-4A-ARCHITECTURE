@@ -43,7 +43,15 @@ public class MarsRoverImp implements MarsRover {
 
 			break;
 		case "r":
-
+			if (direction.equals(Direction.NORTH)) {
+				this.direction = Direction.EAST;
+			} else if (direction.equals(Direction.SOUTH)) {
+				this.direction = Direction.WEST;
+			} else if (direction.equals(Direction.EAST)) {
+				this.direction = Direction.SOUTH;
+			} else if (direction.equals(Direction.WEST)) {
+				this.direction = Direction.NORTH;
+			}
 			break;
 
 		}
