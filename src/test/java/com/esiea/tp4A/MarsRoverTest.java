@@ -70,12 +70,24 @@ public class MarsRoverTest {
 		}
 
 		Assertions.assertThat(marsRoverPlanet.move(command))
-			.as("looking to east")
+			.as("going to the end")
 			.extracting(Position::getX,Position::getY,Position::getDirection)
 			.containsExactly(0,-49,Direction.NORTH);
 	}
 	
-	
+	private MarsRoverImp marsRoverObstacle=new MarsRoverImp();
+	@Test
+	void moveForwardWithObstacle() {
+		String command="f";
+		
+		PlanetMapImp map = new PlanetMapImp();
+		marsRoverObstacle.updateMap(map);
+
+		Assertions.assertThat(marsRoverObstacle.move(command))
+			.as("going through obstacle")
+			.extracting(Position::getX,Position::getY,Position::getDirection)
+			.containsExactly(0, 0, Direction.NORTH);
+	}
 
 }
  
