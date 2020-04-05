@@ -1,11 +1,15 @@
 package com.esiea.tp4A.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MarsRoverImp implements MarsRover {
 
 	private Position position = Position.of(0, 0, Direction.NORTH);
 	private Direction direction = position.getDirection();
 	private int x = position.getX();
 	private int y = position.getY();
+	private Set<Position> set = new HashSet<Position>();
 
 	public Position getPosition() {
 		return position;
@@ -13,6 +17,7 @@ public class MarsRoverImp implements MarsRover {
 
 	@Override
 	public Position move(String command) {
+		Position initialPosition = position;
 		switch (command) {
 		case "f":
 			if (direction.equals(Direction.NORTH)) {
@@ -96,6 +101,24 @@ public class MarsRoverImp implements MarsRover {
 
 		}
 		position = Position.of(x, y, direction);
+
+		for (Position pos : set) {
+			if (pos.getX() == position.getX() && pos.getY() == position.getY()) {
+				position = Position.of(initialPosition.getX(),
+						initialPosition.getY(), direction);
+			}
+		}
 		return position;
+	}
+
+	@Override
+	public MarsRover updateMap(PlanetMap map) {
+		set = map.obstaclePositions();
+		return this;
+	}
+
+	@Override
+	public MarsRover configureLaserRange(int range) {
+		return this;
 	}
 }
