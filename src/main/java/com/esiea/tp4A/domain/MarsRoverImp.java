@@ -104,7 +104,8 @@ public class MarsRoverImp implements MarsRover {
 
 		for (Position pos : set) {
 			if (pos.getX() == position.getX() && pos.getY() == position.getY()) {
-				position = Position.of(initialPosition.getX(), initialPosition.getY(), direction);
+				position = Position.of(initialPosition.getX(),
+						initialPosition.getY(), direction);
 			}
 		}
 		return position;
