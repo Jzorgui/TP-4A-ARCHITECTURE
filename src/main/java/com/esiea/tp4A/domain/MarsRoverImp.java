@@ -10,7 +10,7 @@ public class MarsRoverImp implements MarsRover {
 	private int x = position.getX();
 	private int y = position.getY();
 	private Set<Position> set = new HashSet<Position>();
-
+	private int lazerRange=0;
 	public Position getPosition() {
 		return position;
 	}
@@ -119,6 +119,7 @@ public class MarsRoverImp implements MarsRover {
 
 	@Override
 	public MarsRover configureLaserRange(int range) {
+		lazerRange=range;
 		return this;
 	}
 }
