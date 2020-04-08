@@ -101,35 +101,55 @@ public class MarsRoverImp implements MarsRover {
 			break;
 
 		case "s":
-	        switch(direction) {
-	        case NORTH :
-	            for (Position pos : set) {
-	                if (pos.getX()==x) {
-	                    for (int i = 0; i < lazerRange; i++) {
-	                        if (y+i==pos.getY()) {
-	                            set.remove(pos);
-	                        }
-	                    }
-	                }
-	            }
-	        case SOUTH :
-	            for (Position pos : set) {
-	                if (pos.getX()==x) {
-	                    for (int i = 0; i < lazerRange; i++) {
-	                        if (y-i==pos.getY()) {
-	                            set.remove(pos);
-	                        }
-	                    }
-	                }
-	            }
+			switch (direction) {
+			case NORTH:
+				for (Position pos : set) {
+					if (pos.getX() == x) {
+						for (int i = 0; i < lazerRange; i++) {
+							if (y + i == pos.getY()) {
+								set.remove(pos);
+							}
+						}
+					}
+				}
+			case SOUTH:
+				for (Position pos : set) {
+					if (pos.getX() == x) {
+						for (int i = 0; i < lazerRange; i++) {
+							if (y - i == pos.getY()) {
+								set.remove(pos);
+							}
+						}
+					}
+				}
+			case WEST:
+				for (Position pos : set) {
+					if (pos.getY() == y) {
+						for (int i = 0; i < lazerRange; i++) {
+							if (x - i == pos.getX()) {
+								set.remove(pos);
+							}
+						}
+					}
+				}
+			case EAST:
+				for (Position pos : set) {
+					if (pos.getX() == x) {
+						for (int i = 0; i < lazerRange; i++) {
+							if (y + i == pos.getY()) {
+								set.remove(pos);
+							}
+						}
+					}
+				}
+			}
 		}
-		
+
 		position = Position.of(x, y, direction);
 
 		for (Position pos : set) {
 			if (pos.getX() == position.getX() && pos.getY() == position.getY()) {
-				position = Position.of(initialPosition.getX(),
-						initialPosition.getY(), direction);
+				position = Position.of(initialPosition.getX(), initialPosition.getY(), direction);
 			}
 		}
 		return position;
