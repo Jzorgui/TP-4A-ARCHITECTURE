@@ -10,7 +10,8 @@ public class MarsRoverImp implements MarsRover {
 	private int x = position.getX();
 	private int y = position.getY();
 	private Set<Position> set = new HashSet<Position>();
-	private int lazerRange=0;
+	private int lazerRange = 0;
+
 	public Position getPosition() {
 		return position;
 	}
@@ -99,7 +100,30 @@ public class MarsRoverImp implements MarsRover {
 			}
 			break;
 
+		case "s":
+	        switch(direction) {
+	        case NORTH :
+	            for (Position pos : set) {
+	                if (pos.getX()==x) {
+	                    for (int i = 0; i < lazerRange; i++) {
+	                        if (y+i==pos.getY()) {
+	                            set.remove(pos);
+	                        }
+	                    }
+	                }
+	            }
+	        case SOUTH :
+	            for (Position pos : set) {
+	                if (pos.getX()==x) {
+	                    for (int i = 0; i < lazerRange; i++) {
+	                        if (y-i==pos.getY()) {
+	                            set.remove(pos);
+	                        }
+	                    }
+	                }
+	            }
 		}
+		
 		position = Position.of(x, y, direction);
 
 		for (Position pos : set) {
@@ -119,7 +143,7 @@ public class MarsRoverImp implements MarsRover {
 
 	@Override
 	public MarsRover configureLaserRange(int range) {
-		lazerRange=range;
+		lazerRange = range;
 		return this;
 	}
 }
