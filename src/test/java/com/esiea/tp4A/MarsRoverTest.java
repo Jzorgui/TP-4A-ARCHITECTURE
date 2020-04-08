@@ -84,4 +84,22 @@ public class MarsRoverTest {
 				.containsExactly(0, 0, Direction.NORTH);
 	}
 
+	   private MarsRoverImp marsRoverLazer=new MarsRoverImp();
+	    @Test
+	    void lazerAttack() {
+	        String command="f";
+	        
+	        PlanetMapImp map = new PlanetMapImp();
+	        marsRoverLazer.updateMap(map);
+	        
+	        marsRoverLazer.configureLaserRange(2);
+	        marsRoverLazer.move("s");
+
+	 
+
+	        Assertions.assertThat(marsRoverLazer.move(command))
+	            .as("going through with lazer attack")
+	            .extracting(Position::getX,Position::getY,Position::getDirection)
+	            .containsExactly(0, 1, Direction.NORTH);
+	    }
 }
