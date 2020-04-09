@@ -5,16 +5,34 @@ import java.util.Set;
 
 public class MarsRoverImp implements MarsRover {
 
+<<<<<<< HEAD
 	
 	//Attribute
 	private String name;
 	private int lazerRange = 0;
 	private boolean status=true;
+=======
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public MarsRoverImp(String name) {
+		this.name = name;
+	}
+
+>>>>>>> 554588abbeb57d28e20ca2424a61a97a91f944b9
 	private Position position = Position.of(0, 0, Direction.NORTH);
 	private Direction direction = position.getDirection();
 	private int x = position.getX();
 	private int y = position.getY();
 	private Set<Position> set = new HashSet<Position>();
+<<<<<<< HEAD
 	
 	//Constructors
 	public MarsRoverImp(String name) {
@@ -36,6 +54,18 @@ public class MarsRoverImp implements MarsRover {
 	public String getName() {
 		return name;
 	}
+=======
+
+	public int getLazerRange() {
+		return lazerRange;
+	}
+
+	public void setLazerRange(int lazerRange) {
+		this.lazerRange = lazerRange;
+	}
+
+	private int lazerRange = 0;
+>>>>>>> 554588abbeb57d28e20ca2424a61a97a91f944b9
 
 	public Position getPosition() {
 		return position;
