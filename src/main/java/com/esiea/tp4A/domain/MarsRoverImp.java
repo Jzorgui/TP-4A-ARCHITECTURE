@@ -5,40 +5,55 @@ import java.util.Set;
 
 public class MarsRoverImp implements MarsRover {
 
+	
+	//Attribute
 	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public MarsRoverImp(String name) {
-		this.name = name;
-	}
-
+	private int lazerRange = 0;
+	private boolean status=true;
 	private Position position = Position.of(0, 0, Direction.NORTH);
 	private Direction direction = position.getDirection();
 	private int x = position.getX();
 	private int y = position.getY();
 	private Set<Position> set = new HashSet<Position>();
-
-	public int getLazerRange() {
-		return lazerRange;
+	
+	//Constructors
+	public MarsRoverImp(String name) {
+		this.name = name;
 	}
-
+	public MarsRoverImp() {
+	}
+	
+	
+	//Getters and Setters
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void setLazerRange(int lazerRange) {
 		this.lazerRange = lazerRange;
 	}
-
-	private int lazerRange = 0;
+	
+	public String getName() {
+		return name;
+	}
 
 	public Position getPosition() {
 		return position;
 	}
-
+	
+	public int getLazerRange() {
+		return lazerRange;
+	}	
+	
+	public boolean getStatus() {
+		return status;
+	}
+	
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	//Functions
 	@Override
 	public Position move(String command) {
 		Position initialPosition = position;
@@ -81,8 +96,8 @@ public class MarsRoverImp implements MarsRover {
 			} else if (direction.equals(Direction.SOUTH)) {
 				if (this.y < 50) {
 					this.y += 1;
-				} else if (this.y == -50) {
-					this.y = 49;
+				} else if (this.y == 50) {
+					this.y = -49;
 				}
 			} else if (direction.equals(Direction.EAST)) {
 				if (this.x > -50) {
@@ -91,7 +106,7 @@ public class MarsRoverImp implements MarsRover {
 					this.x = 49;
 				}
 			} else if (direction.equals(Direction.WEST)) {
-				if (this.x > 50) {
+				if (this.x < 50) {
 					this.x += 1;
 				} else if (this.x == 50) {
 					this.x = -49;
