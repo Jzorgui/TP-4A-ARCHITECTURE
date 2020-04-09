@@ -29,9 +29,12 @@ public class SpringController {
 	@GetMapping("/")
 	public String getPlayer(@RequestParam(required =false) String playerName,@RequestParam(required =false, defaultValue="") String action,ModelMap map) {
 		pAction = action;
+		
+		if (!playerName.equals("")) {
 		roverName = playerName;	
-		
-		
+		} else {
+			roverName=randomName;
+		}
 		
 		if(setStringPlayer.add(roverName)) {
 		marsRover = new MarsRoverImp(roverName);
