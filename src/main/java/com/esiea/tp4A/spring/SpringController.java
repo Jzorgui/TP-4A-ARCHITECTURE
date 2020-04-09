@@ -23,6 +23,7 @@ public class SpringController {
 	private int randomId = (int) (Math.random() * ( 01 - 1000 ));
 	private String randomName= "random"+randomId;
 	private String roverName;
+	private int lazerRange;
 	
 	
 
@@ -53,6 +54,8 @@ public class SpringController {
 		x=pos.getX();
 		y=pos.getY();
 		direction=pos.getDirection().toString();
+		lazerRange=marsRover.getLazerRange();
+		
 		
 		marsRover.move(action);
 		
@@ -60,6 +63,7 @@ public class SpringController {
 		map.put("x",x);
 		map.put("y",y);
 		map.put("direction",direction);
+		map.put("lazerRange", lazerRange);
 		return "pages/home";
 	}
 

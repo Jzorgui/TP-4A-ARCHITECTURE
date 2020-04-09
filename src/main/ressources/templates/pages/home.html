@@ -10,7 +10,7 @@
 	<h4 th:text="'Player name : '+${playerName}"></h4>
 	<h4 th:text="'Position : x= '+${x}+' y= '+${y}+' direction= '+${direction}"></h4>
 	<h4 th:text="'Radar : '"></h4>
-	<h4 th:text="'Lazer Range : '"></h4>
+	<h4 th:text="'Lazer Range : '+${lazerRange}"></h4>
 	<h4 th:text="'Status : '"></h4>
 	
 	<div>
@@ -32,6 +32,11 @@
 	 	<form action="/" method="get">
 	     	<input type='hidden' name='playerName' th:value="${playerName}"/>
 	    	<input type='submit' name='action' value='r' />
+	 	</form>
+	 	
+	 	<form action="/" method="get">
+	     	<input type='hidden' name='playerName' th:value="${playerName}"/>
+	    	<input type='submit' name='action' value='s' />
 	 	</form>
 	</div>
 	
