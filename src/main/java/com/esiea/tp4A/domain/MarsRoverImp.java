@@ -4,13 +4,27 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MarsRoverImp implements MarsRover {
+	
+	private String name;
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public MarsRoverImp (String name) {
+		this.name=name;
+	}
 	private Position position = Position.of(0, 0, Direction.NORTH);
 	private Direction direction = position.getDirection();
 	private int x = position.getX();
 	private int y = position.getY();
 	private Set<Position> set = new HashSet<Position>();
 	private int lazerRange = 0;
+	
+	
 
 	public Position getPosition() {
 		return position;
