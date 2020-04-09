@@ -11,31 +11,15 @@
 	<h4 th:text="'Position : x= '+${x}+' y= '+${y}+' direction= '+${direction}"></h4>
 	<h4 th:text="'Radar : '"></h4>
 	<h4 th:text="'Lazer Range : '+${lazerRange}"></h4>
-	<h4 th:text="'Status : '"></h4>
+	<h4 th:text="'Status : '+${status}"></h4>
 	
 	<div>
 		<form action="/" method="get">
 	     	<input type='hidden' name='playerName' th:value="${playerName}"/>
 	     	<input type='submit' name='action' value='f' />
-	 	</form>
-	 	
-	 	<form action="/" method="get">
-	     	<input type='hidden' name='playerName' th:value="${playerName}"/>
-	    	<input type='submit' name='action' value='b' />
-	 	</form>
-	 	
-	 	<form action="/" method="get">
-	     	<input type='hidden' name='playerName' th:value="${playerName}"/>
+	     	<input type='submit' name='action' value='b' />
 	    	<input type='submit' name='action' value='l' />
-	 	</form>
-	 	
-	 	<form action="/" method="get">
-	     	<input type='hidden' name='playerName' th:value="${playerName}"/>
 	    	<input type='submit' name='action' value='r' />
-	 	</form>
-	 	
-	 	<form action="/" method="get">
-	     	<input type='hidden' name='playerName' th:value="${playerName}"/>
 	    	<input type='submit' name='action' value='s' />
 	 	</form>
 	</div>

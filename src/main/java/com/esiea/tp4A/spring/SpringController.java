@@ -24,6 +24,7 @@ public class SpringController {
 	private String randomName= "random"+randomId;
 	private String roverName;
 	private int lazerRange;
+	private boolean status;
 	
 	
 
@@ -55,6 +56,7 @@ public class SpringController {
 		y=pos.getY();
 		direction=pos.getDirection().toString();
 		lazerRange=marsRover.getLazerRange();
+		status=marsRover.getStatus();
 		
 		
 		marsRover.move(action);
@@ -64,6 +66,7 @@ public class SpringController {
 		map.put("y",y);
 		map.put("direction",direction);
 		map.put("lazerRange", lazerRange);
+		map.put("status", status);
 		return "pages/home";
 	}
 
