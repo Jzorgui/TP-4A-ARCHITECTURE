@@ -1,0 +1,13 @@
+.cell{
+    height: 1em;
+    border: 0.1em solid red;
+}
+
+.cell-grey{
+    background-color: rgb(187, 187, 187);
+}
+
+table{
+    width: 100%;
+    table-layout: fixed;
+}
