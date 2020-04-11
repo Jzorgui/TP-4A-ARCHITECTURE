@@ -100,5 +100,7 @@ rendre réalisable ce projet.
 
 ## Images
 
+https://github.com/Jzorgui/TP-4A-ARCHITECTURE/tree/master/Diagramme/diagramme_casUtilisation.PNG
+
 ![Minion](https://octodex.github.com/images/minion.png)
 ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
