@@ -1,13 +1,22 @@
 package com.esiea.tp4A.spring;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.esiea.tp4A.domain.LocalMap;
 import com.esiea.tp4A.domain.MarsRoverImp;
 import com.esiea.tp4A.domain.Position;
 
@@ -25,49 +34,69 @@ public class SpringController {
 	private String roverName;
 	private int lazerRange;
 	private boolean status;
-	
-	
+	private int mapSize;
+	private LocalMap localMap = new LocalMap();
 
-	@GetMapping("/")
-	public String getPlayer(@RequestParam(required =false) String playerName,@RequestParam(required =false, defaultValue="") String action,ModelMap map) {
-		pAction = action;
-		
-		if (!playerName.equals("")) {
-		roverName = playerName;	
+	@PostMapping(path = "/api/player/{playerName}", produces = "application/json")
+	public ResponseEntity<String> create(@PathVariable String playerName, ModelMap map) throws Exception {
+		if (createPlayer(playerName)) {
+			return new ResponseEntity<String>("success", HttpStatus.ACCEPTED);
 		} else {
-			roverName=randomName;
+			return new ResponseEntity<String>("Impossible de créée le joueur", HttpStatus.CONFLICT);
 		}
-		
-		if(setStringPlayer.add(roverName)) {
-		marsRover = new MarsRoverImp(roverName);
-		setPlayer.add(marsRover);
-		
-		} else {
-			for (MarsRoverImp rov :setPlayer) {
-				if (rov.getName().equals(roverName)){
-					marsRover = rov;
-				}
-			}
-		}
-		
-
-		Position pos= Position.of(marsRover.getPosition().getX(),marsRover.getPosition().getY(),marsRover.getPosition().getDirection());
-		x=pos.getX();
-		y=pos.getY();
-		direction=pos.getDirection().toString();
-		lazerRange=marsRover.getLazerRange();
-		status=marsRover.getStatus();
-		
-		
-		marsRover.move(action);
-		
-		map.put("playerName", roverName);
-		map.put("x",x);
-		map.put("y",y);
-		map.put("direction",direction);
-		map.put("lazerRange", lazerRange);
-		map.put("status", status);
-		return "pages/home";
 	}
 
+	@GetMapping(path = "/api/player/{playerName}", produces = "application/json")
+	public ResponseEntity<String> loadPlayer(@PathVariable String playerName, ModelMap map) throws Exception {
+		if (loadingPlayer(playerName)) {
+			return new ResponseEntity<String>("success", HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<String>("aurevoir", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@PatchMapping(path = "/api/player/{playerName}/{command}")
+	public ResponseEntity<String> action(@PathVariable String playerName, @PathVariable String command, ModelMap map) throws Exception {
+		pAction = command;
+		if (loadingPlayer(playerName)) {
+			marsRover.move(pAction);
+			return new ResponseEntity<String>("success", HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<String>("aurevoir", HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	public boolean createPlayer(String name) {
+
+		for (MarsRoverImp rov : localMap.getSetRover()) {
+			if (rov.getName().equals(name)) {
+				return false;
+			}
+		}
+
+		marsRover = new MarsRoverImp(name);
+		
+		if (localMap.getSetRover().isEmpty()) {
+			generateSizeMap();
+			marsRover.GenerateMap(mapSize);
+			//TODO GENERATE OBSTACLE
+		}
+		
+		// GENERATE PLAYER POSITION
+		localMap.fillListRover(marsRover);
+		
+		return true;
+	}
+	
+	public void generateSizeMap() {
+		List<Integer> sizePossibilities = new ArrayList<Integer>();
+		sizePossibilities.add(0, 100);
+		sizePossibilities.add(1, 300);
+		sizePossibilities.add(2, 600);
+
+		Random rand = new Random();
+		mapSize = sizePossibilities.get(rand.nextInt(3));
+	}
+		
 }
+
