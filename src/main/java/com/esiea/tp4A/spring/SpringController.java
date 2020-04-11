@@ -34,7 +34,7 @@ public class SpringController {
 	@PostMapping(path = "/api/player/{playerName}", produces = "application/json")
 	public ResponseEntity<String> create(@PathVariable String playerName, ModelMap map) throws Exception {
 		if (createPlayer(playerName)) {
-			return new ResponseEntity<String>("success", HttpStatus.ACCEPTED);
+			return new ResponseEntity<String>(JSONCreator.returnJson(localMap, marsRover).toString(), HttpStatus.ACCEPTED);
 		} else {
 			return new ResponseEntity<String>("Impossible de créée le joueur", HttpStatus.CONFLICT);
 		}
@@ -43,7 +43,7 @@ public class SpringController {
 	@GetMapping(path = "/api/player/{playerName}", produces = "application/json")
 	public ResponseEntity<String> loadPlayer(@PathVariable String playerName, ModelMap map) throws Exception {
 		if (loadingPlayer(playerName)) {
-			return new ResponseEntity<String>("success", HttpStatus.ACCEPTED);
+			return new ResponseEntity<String>(JSONCreator.returnJson(localMap, marsRover).toString(), HttpStatus.ACCEPTED);
 		} else {
 			return new ResponseEntity<String>("aurevoir", HttpStatus.NOT_FOUND);
 		}
@@ -54,7 +54,7 @@ public class SpringController {
 		pAction = command;
 		if (loadingPlayer(playerName)) {
 			marsRover.move(pAction);
-			return new ResponseEntity<String>("success", HttpStatus.ACCEPTED);
+			return new ResponseEntity<String>(JSONCreator.returnJson(localMap, marsRover).toString(), HttpStatus.ACCEPTED);
 		} else {
 			return new ResponseEntity<String>("aurevoir", HttpStatus.NOT_FOUND);
 		}
