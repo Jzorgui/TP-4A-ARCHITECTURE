@@ -7,6 +7,9 @@ Document réalisé par
 
 ## 1- Diagrammes 
 ### 1.1 Diagrammes cas d'utilisation 
+
+<a href="https://zupimages.net/viewer.php?id=20/15/q0ar.png"><img src="https://zupimages.net/up/20/15/q0ar.png" alt="" /></a>
+
 ##### *Figure 1  - Diagramme de Cas d'utilisation* Figure 1 
 
 Au début, nous avons un utilisateur lambda qui sera le joueur. Une fois que cette personne accède au site internet du jeu, il faut qu’il puisse être identifié. Pour cela, il doit saisir un pseudo, une adresse mail. 
@@ -49,12 +52,16 @@ Cette fonctionnalité importante permettra de déterminer si l’utilisation du 
 
 #### 2.2.1 Initialiser Partie / Identifier 
 
+<a href="https://zupimages.net/viewer.php?id=20/15/ltkg.png"><img src="https://zupimages.net/up/20/15/ltkg.png" alt="" /></a>
+
 ##### *Figure 2  - Diagramme de séquence Système (Initialiser Partie / Identifier)* Figure 1 
 
 Nous démarrons le jeu, le système nous demande de nous identifier, si l’utilisateur est enregistré (retourne true ou false). Si True, nous choisissons qu’il peut accéder à la création de la partie ou rejoindre une partie. Si c’est false, il devra s’inscrire. 
 Le système demande à l’utilisateur de choisir entre rejoindre, charger la partie avec le Système de Sauvegarde. S'il n'ya pas de partie disponible, nous demandons d'effectuer la création d'une nouvelle partie, le timer se lance.
  
 #### 2.2.2 Commencer à jouer
+
+<a href="https://zupimages.net/viewer.php?id=20/15/ecgo.png"><img src="https://zupimages.net/up/20/15/ecgo.png" alt="" /></a>
 
 ##### *Figure 3  - Diagramme de séquence Système (Commencer à jouer)* 
  
@@ -71,6 +78,8 @@ Une fois que le système a mis en place la map, avant de placer les ranges le sy
 
 #### 2.2.4 Sauvegarder 
 
+<a href="https://zupimages.net/viewer.php?id=20/15/jwy1.png"><img src="https://zupimages.net/up/20/15/jwy1.png" alt="" /></a>
+
 ##### *Figure 5  - Diagramme de séquence Système (Sauvegarder)* 
  
 Lorsque nous démarrons une partie, il système va lancer le système de sauvegarde, celle-ci sera la première sauvegarde et la sauvegarde se fera tout le long du jeu automatiquement.
@@ -79,8 +88,13 @@ Le joueur à la possibilité de récupérer sa sauvegarde, par exemple en cas de
 
 #### 2.2.5 Vérifier Déplacement / coup du laser
 
-##### *Figure 6  - Diagramme de séquence Système (VerifierDeplacementCoupduLaser)*  
+<a href="https://zupimages.net/viewer.php?id=20/15/n9w4.png"><img src="https://zupimages.net/up/20/15/n9w4.png" alt="" /></a>
+##### *Figure 6  - Diagramme de séquence Système (VerifierDeplacementCoupDeplacement)*  
  
+<a href="https://zupimages.net/viewer.php?id=20/15/3s15.png"><img src="https://zupimages.net/up/20/15/3s15.png" alt="" /></a> 
+
+##### *Figure 7  - Diagramme de séquence Système (VerifierDeplacementCoupduLaser)* 
+
 Le système va vérifier si le déplacement est possible, en cas d’obstacle ou d’adversaire, le joueur va devoir utiliser son laser et donc faire appel au système.
 
 En l’apparition d’adversaire, l’utilisateur à le choix de se déplacer et d’utiliser son laser, nous vérifions, si celui-ci est bien à une portée suffisante pour pouvoir neutraliser son adversaire. Sinon, Le système bloquera le laser, l’utilisateur devra se déplacer pour l’atteindre.
@@ -100,7 +114,8 @@ rendre réalisable ce projet.
 
 ## Images
 
-https://github.com/Jzorgui/TP-4A-ARCHITECTURE/tree/master/Diagramme/diagramme_casUtilisation.PNG
+
+[url=https://zupimages.net/viewer.php?id=20/15/q0ar.png][img]https://zupimages.net/up/20/15/q0ar.png[/img][/url]
 
 ![Minion](https://octodex.github.com/images/minion.png)
 ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
