@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.esiea.tp4A.domain.LocalMap;
 import com.esiea.tp4A.domain.MarsRoverImp;
+import com.esiea.tp4A.domain.PlanetMapImp;
 import com.esiea.tp4A.domain.Position;
 
 @Controller
@@ -25,17 +26,10 @@ public class SpringController {
 	
 	private String pAction=null;
 	private static MarsRoverImp marsRover;
-	private static Set<String> setStringPlayer= new HashSet<String>();
-	private static Set<MarsRoverImp> setPlayer= new HashSet<MarsRoverImp>();
-	private static int x,y;
-	private String direction;
-	private int randomId = (int) (Math.random() * ( 01 - 1000 ));
-	private String randomName= "random"+randomId;
-	private String roverName;
-	private int lazerRange;
-	private boolean status;
 	private int mapSize;
 	private LocalMap localMap = new LocalMap();
+	private int obstacleNumber;
+	private int xInitial, yInitial;
 
 	@PostMapping(path = "/api/player/{playerName}", produces = "application/json")
 	public ResponseEntity<String> create(@PathVariable String playerName, ModelMap map) throws Exception {
@@ -79,13 +73,15 @@ public class SpringController {
 		if (localMap.getSetRover().isEmpty()) {
 			generateSizeMap();
 			marsRover.GenerateMap(mapSize);
-			//TODO GENERATE OBSTACLE
+			generateObstacle(mapSize);
 		}
-		
-		// GENERATE PLAYER POSITION
+
+
+		boolean ret = generatePlayerPosition(mapSize) ? true : false;
+		if (ret) {
 		localMap.fillListRover(marsRover);
-		
-		return true;
+		}
+		return ret;
 	}
 	
 	public void generateSizeMap() {
@@ -96,6 +92,39 @@ public class SpringController {
 
 		Random rand = new Random();
 		mapSize = sizePossibilities.get(rand.nextInt(3));
+	}
+	
+	public void generateObstacle(int mapSize) {
+		double dObstacleNumber = mapSize * 0.15;
+		obstacleNumber = (int) dObstacleNumber;
+		PlanetMapImp p = new PlanetMapImp();
+		p.setObstacleNumber(obstacleNumber, mapSize);
+	}
+	
+	public boolean generatePlayerPosition(int mapSize) {
+		Random rand = new Random();
+
+		boolean bCreat=false;
+		int i=0;
+		while (i<49) {
+			xInitial = -mapSize / 2 + (rand.nextInt(mapSize));
+			yInitial = -mapSize / 2 + (rand.nextInt(mapSize));
+			System.out.println("Tentative de placement de x : "+xInitial+" y :"+yInitial);
+			System.out.println("La place est occupé : "+localMap.isPlaceOccupated(xInitial, xInitial));
+			
+			if (localMap.isPlaceOccupated(xInitial, yInitial)) {
+				i++;
+				bCreat=false;
+			} else if (!localMap.isPlaceOccupated(xInitial, yInitial)) {
+				i+=49;
+				bCreat=true;
+			}
+		}
+		
+		marsRover.setX(xInitial);
+		marsRover.setY(yInitial);
+		return bCreat;
+
 	}
 		
 }
