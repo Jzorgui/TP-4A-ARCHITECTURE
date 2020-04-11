@@ -289,6 +289,76 @@ public class MarsRoverImp implements MarsRover {
 		yMinMap = mapSize / 2;
 	}
 
+
+    //  --------------Radar----------------------
+
+    public JSONArray radarObstacle(LocalMap localMap2) {
+
+        JSONArray mapRadar = new JSONArray();
+
+        // We first Verify if there is some obstacle on x+15 and y+15
+        for (int i = x + 1; i < x + 17; i++) {
+            for (int p = y + 1; p < y + 17; p++) {
+                for (Position pos : localMap2.getSetPos()) {
+                    if (pos.getX() == i) {
+                        if (pos.getY() == p) {
+                            mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        // We then verify x-15 and y-15
+        for (int i = x - 1; i < x - 17; i--) {
+            for (int p = y - 1; p < y - 17; p--) {
+                for (Position pos : localMap2.getSetPos()) {
+                    if (pos.getX() == i) {
+                        if (pos.getY() == p) {
+                            mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        // We then verify x+15 and y-15
+        for (int i = x - 1; i < x + 17; i++) {
+            for (int p = y - 1; p < y - 17; p--) {
+                for (Position pos : localMap2.getSetPos()) {
+                    if (pos.getX() == i) {
+                        if (pos.getY() == p) {
+                            mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
+                        }
+                    }
+                }
+            }
+        }
+
+        // We then verify x-15 and y+15
+        for (int i = x - 1; i < x - 17; i--) {
+            for (int p = y - 1; p < y + 17; p++) {
+                for (Position pos : localMap2.getSetPos()) {
+                    if (pos.getX() == i) {
+                        if (pos.getY() == p) {
+                            mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
+                        }
+                    }
+                }
+            }
+        }
+
+        return mapRadar;
+    }
+
+    //  --------------End Radar----------------------
+
+
+
 	@Override
 	public MarsRover updateMap(PlanetMap map) {
 		set = map.obstaclePositions();
