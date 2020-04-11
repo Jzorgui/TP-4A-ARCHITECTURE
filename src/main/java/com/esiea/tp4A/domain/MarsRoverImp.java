@@ -280,6 +280,14 @@ public class MarsRoverImp implements MarsRover {
 		}
 		return position;
 	}
+	
+
+	public void GenerateMap(int mapSize) {
+		xMaxMap = mapSize / 2;
+		xMinMap = xMaxMap - mapSize;
+		yMaxMap = mapSize / 2;
+		yMinMap = mapSize / 2;
+	}
 
 	@Override
 	public MarsRover updateMap(PlanetMap map) {
