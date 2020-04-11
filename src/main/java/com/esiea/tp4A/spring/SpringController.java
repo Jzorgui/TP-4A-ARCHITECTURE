@@ -84,6 +84,20 @@ public class SpringController {
 		return ret;
 	}
 	
+	public boolean loadingPlayer(String name) {
+
+		for (MarsRoverImp rov : localMap.getSetRover()) {
+			if (rov.getName().equals(name)) {
+				marsRover = rov;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+
+	}
+	
 	public void generateSizeMap() {
 		List<Integer> sizePossibilities = new ArrayList<Integer>();
 		sizePossibilities.add(0, 100);
