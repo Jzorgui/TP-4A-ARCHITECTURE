@@ -56,17 +56,6 @@ public class LocalMap {
 		return bReturn;
 	}
 
-	public void afficher() {
-		for (MarsRoverImp rov : setRover) {
-			System.out.println("rover name : " + rov.getName() + " x : " + rov.getX() + " y : " + rov.getY());
-		}
-	}
-	public void afficherObstacle() {
-		for (Position pos : setPos) {
-			System.out.println(" x : " + pos.getX() + " y : " + pos.getY());
-		}
-	}
-
 	public Set<Position> getSetPos() {
 		return setPos;
 	}
