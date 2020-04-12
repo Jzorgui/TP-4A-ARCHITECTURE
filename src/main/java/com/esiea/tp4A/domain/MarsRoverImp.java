@@ -30,7 +30,7 @@ public class MarsRoverImp implements MarsRover {
 
 	public MarsRoverImp() {
 	}
-
+	
 	// Getters and Setters
 
 	public void setLocalMap(LocalMap localMap) {
@@ -49,16 +49,16 @@ public class MarsRoverImp implements MarsRover {
 		this.name = name;
 	}
 
-	public void setLazerRange(int lazerRange) {
-		this.lazerRange = lazerRange;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public Position getPosition() {
 		return position;
+	}
+	
+	public void setPosition(Position pos) {
+		this.position=pos;
 	}
 
 	public int getLazerRange() {
@@ -291,7 +291,7 @@ public class MarsRoverImp implements MarsRover {
 		xMaxMap = mapSize / 2;
 		xMinMap = xMaxMap - mapSize;
 		yMaxMap = mapSize / 2;
-		yMinMap = mapSize / 2;
+		yMinMap = yMaxMap - mapSize;
 	}
 
 	public JSONArray radarObstacle(LocalMap localMap2) {
