@@ -35,6 +35,12 @@ public class SpringController {
 		}
 	}
 
+	
+	@GetMapping("/")
+	public String first() {
+		return "pages/web";
+	}
+	
 	@GetMapping(path = "/api/player/{playerName}", produces = "application/json")
 	public ResponseEntity<String> loadPlayer(@PathVariable String playerName, ModelMap map) throws Exception {
 		if (loadingPlayer(playerName)) {
@@ -123,7 +129,7 @@ public class SpringController {
 		double dObstacleNumber = mapSize * 0.15;
 		obstacleNumber = (int) dObstacleNumber;
 		PlanetMapImp p = new PlanetMapImp();
-		p.setObstacleNumber(obstacleNumber, mapSize);
+		p.setObstacleNumber(obstacleNumber, mapSize,localMap);
 	}
 	
 	public boolean generatePlayerPosition(int mapSize) {

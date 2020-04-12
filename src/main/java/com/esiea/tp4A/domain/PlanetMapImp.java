@@ -9,7 +9,7 @@ public class PlanetMapImp implements PlanetMap {
 	private Set<Position> set = new HashSet<Position>();
 	private int obstacleNumber;
 	private Random rand = new Random();
-	private LocalMap localMap = new LocalMap();
+	private LocalMap localMap;
 	private boolean bCreat;
 	private int mapSize;
 
@@ -26,9 +26,10 @@ public class PlanetMapImp implements PlanetMap {
 		return set;
 	}
 
-	public void setObstacleNumber(int obstacleNumber, int mapSize) {
+	public void setObstacleNumber(int obstacleNumber, int mapSize, LocalMap localMap) {
 		this.obstacleNumber = obstacleNumber;
 		this.mapSize=mapSize;
+		this.localMap=localMap;
 		obstaclePositions();
 	}
 }

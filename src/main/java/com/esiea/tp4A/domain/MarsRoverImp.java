@@ -36,7 +36,7 @@ public class MarsRoverImp implements MarsRover {
 	public void setLocalMap(LocalMap localMap) {
 		this.localMap = localMap;
 	}
-	
+
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -200,18 +200,19 @@ public class MarsRoverImp implements MarsRover {
 					if (rov.getPosition().getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y + i == rov.getPosition().getY()) {
-								localMap.getSetPos().remove(rov);
+								rov.setStatus(false);
+								localMap.getSetRover().remove(rov);
 							}
 						}
 					}
 				}
 			case SOUTH:
 				// Try to destruct an obstacle
-				for (Position pos : set) {
+				for (Position pos : localMap.getSetPos()) {
 					if (pos.getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y - i == pos.getY()) {
-								set.remove(pos);
+								localMap.getSetPos().remove(pos);
 							}
 						}
 					}
@@ -221,6 +222,7 @@ public class MarsRoverImp implements MarsRover {
 					if (rov.getPosition().getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y - i == rov.getPosition().getY()) {
+								rov.setStatus(false);
 								localMap.getSetRover().remove(rov);
 							}
 						}
@@ -229,11 +231,11 @@ public class MarsRoverImp implements MarsRover {
 			case WEST:
 
 				// Try to destruct an obstacle
-				for (Position pos : set) {
+				for (Position pos : localMap.getSetPos()) {
 					if (pos.getY() == y) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (x - i == pos.getX()) {
-								set.remove(pos);
+								localMap.getSetPos().remove(pos);
 							}
 						}
 					}
@@ -243,6 +245,7 @@ public class MarsRoverImp implements MarsRover {
 					if (rov.getPosition().getY() == y) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (x - i == rov.getPosition().getX()) {
+								rov.setStatus(false);
 								localMap.getSetRover().remove(rov);
 							}
 						}
@@ -250,11 +253,11 @@ public class MarsRoverImp implements MarsRover {
 				}
 			case EAST:
 				// Try to destruct an obstacle
-				for (Position pos : set) {
+				for (Position pos : localMap.getSetPos()) {
 					if (pos.getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y + i == pos.getY()) {
-								set.remove(pos);
+								localMap.getSetPos().remove(pos);
 							}
 						}
 					}
@@ -264,6 +267,7 @@ public class MarsRoverImp implements MarsRover {
 					if (rov.getPosition().getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y + i == rov.getPosition().getY()) {
+								rov.setStatus(false);
 								localMap.getSetRover().remove(rov);
 							}
 						}
@@ -332,7 +336,7 @@ public class MarsRoverImp implements MarsRover {
 				}
 			}
 		}
-		
+
 		// We then verify x-15 and y+15
 		for (int i = x - 1; i < x - 17; i--) {
 			for (int p = y - 1; p < y + 17; p++) {
@@ -345,7 +349,7 @@ public class MarsRoverImp implements MarsRover {
 				}
 			}
 		}
-		
+
 		return mapRadar;
 	}
 
@@ -364,6 +368,7 @@ public class MarsRoverImp implements MarsRover {
 						if (rov.getY() == p) {
 							mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
 									rov.getName()));
+							System.out.println(mapRadar);
 						}
 					}
 				}
