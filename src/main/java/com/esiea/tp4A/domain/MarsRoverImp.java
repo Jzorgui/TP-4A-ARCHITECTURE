@@ -1,9 +1,7 @@
 package com.esiea.tp4A.domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -34,6 +32,10 @@ public class MarsRoverImp implements MarsRover {
 	}
 
 	// Getters and Setters
+
+	public void setLocalMap(LocalMap localMap) {
+		this.localMap = localMap;
+	}
 
 	public void setX(int x) {
 		this.x = x;
@@ -198,18 +200,19 @@ public class MarsRoverImp implements MarsRover {
 					if (rov.getPosition().getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y + i == rov.getPosition().getY()) {
-								localMap.getSetPos().remove(rov);
+								rov.setStatus(false);
+								localMap.getSetRover().remove(rov);
 							}
 						}
 					}
 				}
 			case SOUTH:
 				// Try to destruct an obstacle
-				for (Position pos : set) {
+				for (Position pos : localMap.getSetPos()) {
 					if (pos.getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y - i == pos.getY()) {
-								set.remove(pos);
+								localMap.getSetPos().remove(pos);
 							}
 						}
 					}
@@ -219,6 +222,7 @@ public class MarsRoverImp implements MarsRover {
 					if (rov.getPosition().getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y - i == rov.getPosition().getY()) {
+								rov.setStatus(false);
 								localMap.getSetRover().remove(rov);
 							}
 						}
@@ -227,11 +231,11 @@ public class MarsRoverImp implements MarsRover {
 			case WEST:
 
 				// Try to destruct an obstacle
-				for (Position pos : set) {
+				for (Position pos : localMap.getSetPos()) {
 					if (pos.getY() == y) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (x - i == pos.getX()) {
-								set.remove(pos);
+								localMap.getSetPos().remove(pos);
 							}
 						}
 					}
@@ -241,6 +245,7 @@ public class MarsRoverImp implements MarsRover {
 					if (rov.getPosition().getY() == y) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (x - i == rov.getPosition().getX()) {
+								rov.setStatus(false);
 								localMap.getSetRover().remove(rov);
 							}
 						}
@@ -248,11 +253,11 @@ public class MarsRoverImp implements MarsRover {
 				}
 			case EAST:
 				// Try to destruct an obstacle
-				for (Position pos : set) {
+				for (Position pos : localMap.getSetPos()) {
 					if (pos.getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y + i == pos.getY()) {
-								set.remove(pos);
+								localMap.getSetPos().remove(pos);
 							}
 						}
 					}
@@ -262,6 +267,7 @@ public class MarsRoverImp implements MarsRover {
 					if (rov.getPosition().getX() == x) {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y + i == rov.getPosition().getY()) {
+								rov.setStatus(false);
 								localMap.getSetRover().remove(rov);
 							}
 						}
@@ -280,7 +286,6 @@ public class MarsRoverImp implements MarsRover {
 		}
 		return position;
 	}
-	
 
 	public void GenerateMap(int mapSize) {
 		xMaxMap = mapSize / 2;
@@ -289,153 +294,131 @@ public class MarsRoverImp implements MarsRover {
 		yMinMap = mapSize / 2;
 	}
 
+	public JSONArray radarObstacle(LocalMap localMap2) {
 
-    //  --------------Radar obstacles----------------------
+		JSONArray mapRadar = new JSONArray();
 
-    public JSONArray radarObstacle(LocalMap localMap2) {
+		// We first Verify if there is some obstacle on x+15 and y+15
+		for (int i = x + 1; i < x + 17; i++) {
+			for (int p = y + 1; p < y + 17; p++) {
+				for (Position pos : localMap2.getSetPos()) {
+					if (pos.getX() == i) {
+						if (pos.getY() == p) {
+							mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
+						}
+					}
+				}
+			}
+		}
 
-        JSONArray mapRadar = new JSONArray();
+		// We then verify x-15 and y-15
+		for (int i = x - 1; i < x - 17; i--) {
+			for (int p = y - 1; p < y - 17; p--) {
+				for (Position pos : localMap2.getSetPos()) {
+					if (pos.getX() == i) {
+						if (pos.getY() == p) {
+							mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
+						}
+					}
+				}
+			}
+		}
 
-        // We first Verify if there is some obstacle on x+15 and y+15
-        for (int i = x + 1; i < x + 17; i++) {
-            for (int p = y + 1; p < y + 17; p++) {
-                for (Position pos : localMap2.getSetPos()) {
-                    if (pos.getX() == i) {
-                        if (pos.getY() == p) {
-                            mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
-                        }
-                    }
-                }
-            }
-        }
+		// We then verify x+15 and y-15
+		for (int i = x - 1; i < x + 17; i++) {
+			for (int p = y - 1; p < y - 17; p--) {
+				for (Position pos : localMap2.getSetPos()) {
+					if (pos.getX() == i) {
+						if (pos.getY() == p) {
+							mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
+						}
+					}
+				}
+			}
+		}
 
+		// We then verify x-15 and y+15
+		for (int i = x - 1; i < x - 17; i--) {
+			for (int p = y - 1; p < y + 17; p++) {
+				for (Position pos : localMap2.getSetPos()) {
+					if (pos.getX() == i) {
+						if (pos.getY() == p) {
+							mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
+						}
+					}
+				}
+			}
+		}
 
+		return mapRadar;
+	}
 
-        // We then verify x-15 and y-15
-        for (int i = x - 1; i < x - 17; i--) {
-            for (int p = y - 1; p < y - 17; p--) {
-                for (Position pos : localMap2.getSetPos()) {
-                    if (pos.getX() == i) {
-                        if (pos.getY() == p) {
-                            mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
-                        }
-                    }
-                }
-            }
-        }
+	public JSONArray radarEnnemie(LocalMap localMap2) {
 
+		JSONArray mapRadar = new JSONArray();
 
+		System.out.println("mapRadar avant : " + mapRadar);
 
-        // We then verify x+15 and y-15
-        for (int i = x - 1; i < x + 17; i++) {
-            for (int p = y - 1; p < y - 17; p--) {
-                for (Position pos : localMap2.getSetPos()) {
-                    if (pos.getX() == i) {
-                        if (pos.getY() == p) {
-                            mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
-                        }
-                    }
-                }
-            }
-        }
+		System.out.println(localMap2.getSetRover().size());
+		// We first Verify if there is some ennemies on x+15 and y+15
+		for (int i = x + 1; i < x + 17; i++) {
+			for (int p = y + 1; p < y + 17; p++) {
+				for (MarsRoverImp rov : localMap2.getSetRover()) {
+					if (rov.getX() == i) {
+						if (rov.getY() == p) {
+							mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
+									rov.getName()));
+							System.out.println(mapRadar);
+						}
+					}
+				}
+			}
+		}
 
-        // We then verify x-15 and y+15
-        for (int i = x - 1; i < x - 17; i--) {
-            for (int p = y - 1; p < y + 17; p++) {
-                for (Position pos : localMap2.getSetPos()) {
-                    if (pos.getX() == i) {
-                        if (pos.getY() == p) {
-                            mapRadar.put(new JSONObject().put("x", pos.getX()).put("y", pos.getY()));
-                        }
-                    }
-                }
-            }
-        }
+		// We then verify x-15 and y-15
+		for (int i = x - 1; i < x - 17; i--) {
+			for (int p = y - 1; p < y - 17; p--) {
+				for (MarsRoverImp rov : localMap2.getSetRover()) {
+					if (rov.getX() == i) {
+						if (rov.getY() == p) {
+							mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
+									rov.getName()));
+						}
+					}
+				}
+			}
+		}
 
-        return mapRadar;
-    }
+		// We then verify x+15 and y-15
+		for (int i = x - 1; i < x + 17; i++) {
+			for (int p = y - 1; p < y - 17; p--) {
+				for (MarsRoverImp rov : localMap2.getSetRover()) {
+					if (rov.getX() == i) {
+						if (rov.getY() == p) {
+							mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
+									rov.getName()));
+						}
+					}
+				}
+			}
+		}
+		// We then verify x-15 and y+15
+		for (int i = x - 1; i < x - 17; i--) {
+			for (int p = y - 1; p < y + 17; p++) {
+				for (MarsRoverImp rov : localMap2.getSetRover()) {
+					if (rov.getX() == i) {
+						if (rov.getY() == p) {
+							mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
+									rov.getName()));
+						}
+					}
+				}
+			}
+		}
+		System.out.println("mapRadar après : " + mapRadar);
 
-    //  --------------End Radar----------------------
-
-
-    // ---------------Radar ennemy-------------------
-
-    public JSONArray radarEnnemie(LocalMap localMap2) {
-
-        JSONArray mapRadar = new JSONArray();
-
-        System.out.println("mapRadar avant : " + mapRadar);
-
-
-
-        System.out.println(localMap2.getSetRover().size());
-        // We first Verify if there is some ennemies on x+15 and y+15
-        for (int i = x + 1; i < x + 17; i++) {
-            for (int p = y + 1; p < y + 17; p++) {
-                for (MarsRoverImp rov : localMap2.getSetRover()) {
-                    if (rov.getX() == i) {
-                        if (rov.getY() == p) {
-                            mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
-                                rov.getName()));
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-        // We then verify x-15 and y-15
-        for (int i = x - 1; i < x - 17; i--) {
-            for (int p = y - 1; p < y - 17; p--) {
-                for (MarsRoverImp rov : localMap2.getSetRover()) {
-                    if (rov.getX() == i) {
-                        if (rov.getY() == p) {
-                            mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
-                                rov.getName()));
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-        // We then verify x+15 and y-15
-        for (int i = x - 1; i < x + 17; i++) {
-            for (int p = y - 1; p < y - 17; p--) {
-                for (MarsRoverImp rov : localMap2.getSetRover()) {
-                    if (rov.getX() == i) {
-                        if (rov.getY() == p) {
-                            mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
-                                rov.getName()));
-                        }
-                    }
-                }
-            }
-        }
-        // We then verify x-15 and y+15
-        for (int i = x - 1; i < x - 17; i--) {
-            for (int p = y - 1; p < y + 17; p++) {
-                for (MarsRoverImp rov : localMap2.getSetRover()) {
-                    if (rov.getX() == i) {
-                        if (rov.getY() == p) {
-                            mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name",
-                                rov.getName()));
-                        }
-                    }
-                }
-            }
-        }
-        System.out.println("mapRadar après : " + mapRadar);
-
-
-
-        return mapRadar;
-    }
-
-    // ---------------End Radar ennemy-------------------
-
+		return mapRadar;
+	}
 
 	@Override
 	public MarsRover updateMap(PlanetMap map) {
