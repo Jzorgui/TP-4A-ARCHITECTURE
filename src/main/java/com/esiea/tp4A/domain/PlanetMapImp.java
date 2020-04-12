@@ -8,7 +8,6 @@ public class PlanetMapImp implements PlanetMap {
 
 	private Set<Position> set = new HashSet<Position>();
 	private int obstacleNumber;
-	private MarsRoverImp marsRover = new MarsRoverImp();
 	private Random rand = new Random();
 	private LocalMap localMap = new LocalMap();
 	private boolean bCreat;
@@ -18,7 +17,6 @@ public class PlanetMapImp implements PlanetMap {
 	public Set<Position> obstaclePositions() {
 		for (int i = 0; i < obstacleNumber; i++) {
 			bCreat=false;
-			System.out.println("index :"+i);
 			while (bCreat == false) {
 				int x = -mapSize/2 + (rand.nextInt(mapSize));
 				int y = -mapSize/2 + (rand.nextInt(mapSize));
