@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>MarsRover</title>
+</head>
+<body>
+	<h1>Hello Rover</h1>
+	<br/><br/><br/>
+	<h4 th:text="'Player name : '+${playerName}"></h4>
+	<h4 th:text="'Position : x= '+${x}+' y= '+${y}+' direction= '+${direction}"></h4>
+	<h4 th:text="'Radar : '"></h4>
+	<h4 th:text="'Lazer Range : '+${lazerRange}"></h4>
+	<h4 th:text="'Status : '+${status}"></h4>
+	
+	<div>
+		<form action="/" method="get">
+	     	<input type='hidden' name='playerName' th:value="${playerName}"/>
+	     	<input type='submit' name='action' value='f' />
+	     	<input type='submit' name='action' value='b' />
+	    	<input type='submit' name='action' value='l' />
+	    	<input type='submit' name='action' value='r' />
+	    	<input type='submit' name='action' value='s' />
+	 	</form>
+	</div>
+	
+</body>
+</html>

@@ -30,7 +30,7 @@ public class MarsRoverImp implements MarsRover {
 
 	public MarsRoverImp() {
 	}
-
+	
 	// Getters and Setters
 
 	public void setLocalMap(LocalMap localMap) {
@@ -59,6 +59,10 @@ public class MarsRoverImp implements MarsRover {
 
 	public Position getPosition() {
 		return position;
+	}
+	
+	public void setPosition(Position pos) {
+		this.position=pos;
 	}
 
 	public void setPosition(Position pos) {
