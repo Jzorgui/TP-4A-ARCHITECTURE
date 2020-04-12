@@ -4,10 +4,11 @@ import com.esiea.tp4A.spring.JSONCreator;
 
 public class LoadPlayer {
 	private static MarsRoverImp marsRover;
-	private int mapSize;
 	private LocalMap localMap = new LocalMap();
 	private PartySettings party = new PartySettings();
 	private JSONCreator responseJson = new JSONCreator();
+	private int lazerRange;
+	private final int mapSize =  party.generateSizeMap();
 
 	public boolean createPlayer(String name) {
 		for (MarsRoverImp rov : localMap.getSetRover()) {
@@ -18,12 +19,12 @@ public class LoadPlayer {
 		marsRover = new MarsRoverImp(name);
 
 		if (localMap.getSetRover().isEmpty()) {
-			mapSize = party.generateSizeMap(mapSize);
-			marsRover.GenerateMap(mapSize);
 			party.generateObstacle(mapSize, localMap);
+			lazerRange = party.setLazerRange();
 		}
+
+		marsRover.GenerateMap(mapSize);
 		marsRover.setLocalMap(localMap);
-		int lazerRange = party.setLazerRange();
 		marsRover.configureLaserRange(lazerRange);
 
 		boolean ret = party.generatePlayerPosition(mapSize, localMap, marsRover) ? true : false;
