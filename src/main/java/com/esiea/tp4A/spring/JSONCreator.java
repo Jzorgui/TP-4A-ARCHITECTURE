@@ -8,31 +8,23 @@ import com.esiea.tp4A.domain.MarsRoverImp;
 
 public class JSONCreator {
 	
-	
-	
 	public static  JSONObject returnJson(LocalMap localMap, MarsRoverImp marsRover) throws Exception {
 
 		//Building ennemies json part
 		JSONArray arrayJsonEnnemies = new JSONArray();
+		arrayJsonEnnemies = marsRover.radarEnnemie(localMap);
 		
-		arrayJsonEnnemies = null; //TODO must implementing radar ennemie
-		System.out.println(arrayJsonEnnemies);
 		//Building obstacle json part
-		
 		JSONArray arrayJsonObstacle = new JSONArray();
-
-		arrayJsonObstacle = null; //TODO must implementing radar obstacle
-				//marsRover.radarObstacle(localMap);
+		arrayJsonObstacle = marsRover.radarObstacle(localMap);
 		
 		//JSON Local-map
 		JSONObject localJson = new JSONObject();
-		
 		localJson.put("Ennemies", arrayJsonEnnemies);
 		localJson.put("Obstacles", arrayJsonObstacle);
 		localJson.put("size", marsRover.getxMaxMap()*2);
 
 		//Building current Player json 
-
 		JSONObject jsonPlayer = new JSONObject();
 		JSONObject jsonPosition = new JSONObject();
 		
