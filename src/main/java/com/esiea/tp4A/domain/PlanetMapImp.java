@@ -1,6 +1,7 @@
 package com.esiea.tp4A.domain;
 
 import java.util.HashSet;
+ 
 import java.util.Random;
 import java.util.Set;
 
@@ -24,6 +25,11 @@ public class PlanetMapImp implements PlanetMap {
 			}
 		}
 		return set;
+	}
+	
+	public void setObstacleForTest(int x, int y,LocalMap localMap2) {
+		localMap=localMap2;
+		localMap.fillListObstacle(x, y);
 	}
 
 	public void setObstacleNumber(int obstacleNumber, int mapSize, LocalMap localMap) {

@@ -12,16 +12,17 @@ public class PartySettings {
 		int lazerRange=0;
 		switch (randLazer) {
 		case 0:
-			lazerRange = 5;
+			lazerRange = 5; break;
 		case 1:
-			lazerRange = 30;
+			lazerRange = 30; break;
 		case 2:
-			lazerRange = 10000;
+			lazerRange = 10000; break;
 		}
 		return lazerRange;
 	}
 
-	public int generateSizeMap(int mapSize) {
+	public int generateSizeMap() {
+		int mapSize;
 		List<Integer> sizePossibilities = new ArrayList<Integer>();
 		sizePossibilities.add(0, 100);
 		sizePossibilities.add(1, 300);
@@ -45,8 +46,8 @@ public class PartySettings {
 		int yInitial = 0;
 		int i = 0;
 		while (i < 49) {
-			xInitial = -mapSize / 2 + (rand.nextInt(mapSize));
-			yInitial = -mapSize / 2 + (rand.nextInt(mapSize));
+			xInitial = -mapSize + (rand.nextInt(mapSize));
+			yInitial = -mapSize + (rand.nextInt(mapSize));
 			if (localMap.isPlaceOccupated(xInitial, yInitial)) {
 				i++;
 				bCreat = false;

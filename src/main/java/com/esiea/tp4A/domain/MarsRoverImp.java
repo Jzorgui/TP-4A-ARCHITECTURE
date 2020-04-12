@@ -36,6 +36,10 @@ public class MarsRoverImp implements MarsRover {
 	public void setLocalMap(LocalMap localMap) {
 		this.localMap = localMap;
 	}
+	
+	public LocalMap getLocalMap() {
+		return this.localMap;
+	}
 
 	public void setX(int x) {
 		this.x = x;
@@ -49,16 +53,16 @@ public class MarsRoverImp implements MarsRover {
 		this.name = name;
 	}
 
-	public void setLazerRange(int lazerRange) {
-		this.lazerRange = lazerRange;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public Position getPosition() {
 		return position;
+	}
+
+	public void setPosition(Position pos) {
+		this.position = pos;
 	}
 
 	public int getLazerRange() {
@@ -191,6 +195,7 @@ public class MarsRoverImp implements MarsRover {
 						for (int i = 0; i < lazerRange; i++) {
 							if (y + i == pos.getY()) {
 								localMap.getSetPos().remove(pos);
+								System.out.println("Obstacle eliminer");
 							}
 						}
 					}
@@ -279,19 +284,18 @@ public class MarsRoverImp implements MarsRover {
 
 		position = Position.of(x, y, direction);
 
-		for (Position pos : set) {
-			if (pos.getX() == position.getX() && pos.getY() == position.getY()) {
-				position = Position.of(initialPosition.getX(), initialPosition.getY(), direction);
-			}
+		if (localMap.isPlaceOccupated(position.getX(), position.getY())) {
+			position = Position.of(initialPosition.getX(), initialPosition.getY(), direction);
 		}
 		return position;
+
 	}
 
 	public void GenerateMap(int mapSize) {
 		xMaxMap = mapSize / 2;
 		xMinMap = xMaxMap - mapSize;
 		yMaxMap = mapSize / 2;
-		yMinMap = mapSize / 2;
+		yMinMap = yMaxMap - mapSize;
 	}
 
 	public JSONArray radarObstacle(LocalMap localMap2) {
