@@ -1,9 +1,5 @@
 package com.esiea.tp4A.domain;
 
-import java.util.HashSet;
-
-import java.util.Set;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,7 +13,6 @@ public class MarsRoverImp implements MarsRover {
 	private int y;
 	private Position position = Position.of(x, y, Direction.NORTH);
 	private Direction direction = position.getDirection();
-	private Set<Position> set = new HashSet<Position>();
 	private LocalMap localMap;
 
 	// MapRange
@@ -59,10 +54,6 @@ public class MarsRoverImp implements MarsRover {
 
 	public Position getPosition() {
 		return position;
-	}
-	
-	public void setPosition(Position pos) {
-		this.position=pos;
 	}
 
 	public void setPosition(Position pos) {
@@ -430,7 +421,6 @@ public class MarsRoverImp implements MarsRover {
 
 	@Override
 	public MarsRover updateMap(PlanetMap map) {
-		set = map.obstaclePositions();
 		return this;
 	}
 
