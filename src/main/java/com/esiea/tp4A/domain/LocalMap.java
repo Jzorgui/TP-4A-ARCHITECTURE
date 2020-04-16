@@ -41,7 +41,7 @@ public class LocalMap {
 			}
 		}
 		for (MarsRoverImp rov : setRover) {
-			if (rov.getX() == x && rov.getY() == y && !rov.getName().equals(name)) {
+			if (rov.getX() == x && rov.getY() == y && !rov.getName().equals(name) && rov.getStatus()==true) {
 				return true;
 			}
 		}

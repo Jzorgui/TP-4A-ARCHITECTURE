@@ -184,9 +184,12 @@ public class MarsRoverImp implements MarsRover {
 				this.direction = Direction.NORTH;
 			}
 			break;
-
 		case "s":
-			lazerAttak();
+			if (lazerAttak(direction)) {
+				System.out.println("You've destroyed something !");
+			} else {
+				System.out.println("You hired but Nothing happened");
+			}
 			break;
 		}
 		if (localMap.isPlaceOccupated(x, y, name) == true || this.getStatus() == false) {
@@ -198,69 +201,75 @@ public class MarsRoverImp implements MarsRover {
 		return position;
 	}
 
-	public void lazerAttak() {
+	public boolean lazerAttak(Direction direction) {
+		System.out.println(direction);
 		switch (direction) {
-		case NORTH:
-			for (int i = y + 1; i <= y + lazerRange; i++) {
-				for (Position pos : localMap.getSetPos()) {
-					if (pos.getX() == x && pos.getY() == i) {
-						localMap.getSetPos().remove(pos);
-						break;
+			case NORTH:
+				for (int i = y + 1; i <= y + lazerRange; i++) {
+					for (Position pos : localMap.getSetPos()) {
+						if (pos.getX() == x && pos.getY() == i) {
+							localMap.getSetPos().remove(pos);
+							return true;
+						}
+					}
+					for (MarsRoverImp rov : localMap.getSetRover()) {
+						if (rov.getX() == x && rov.getY() == i && rov.getStatus() == true) {
+							rov.setStatus(false);
+							return true;
+						}
 					}
 				}
-				for (MarsRoverImp rov : localMap.getSetRover()) {
-					if (rov.getX() == x && rov.getY() == i && rov.getStatus() == true) {
-						rov.setStatus(false);
-						break;
+				break;
+			case SOUTH:
+				for (int i = y - 1; i >= y - lazerRange; i--) {
+					for (Position pos : localMap.getSetPos()) {
+						if (pos.getX() == x && pos.getY() == i) {
+							localMap.getSetPos().remove(pos);
+							return true;
+						}
+					}
+					for (MarsRoverImp rov : localMap.getSetRover()) {
+						if (rov.getX() == x && rov.getY() == i && rov.getStatus() == true) {
+							rov.setStatus(false);
+							return true;
+						}
 					}
 				}
-			}
-		case SOUTH:
-			for (int i = y - 1; i >= y - lazerRange; i--) {
-				for (Position pos : localMap.getSetPos()) {
-					if (pos.getX() == x && pos.getY() == i) {
-						localMap.getSetPos().remove(pos);
-						break;
+				break;
+			case WEST:
+				for (int i = x - 1; i >= x - lazerRange; i--) {
+					for (Position pos : localMap.getSetPos()) {
+						if (pos.getX() == i && pos.getY() == y) {
+							localMap.getSetPos().remove(pos);
+							return true;
+						}
+					}
+					for (MarsRoverImp rov : localMap.getSetRover()) {
+						if (rov.getX() == i && rov.getY() == y  && rov.getStatus() == true) {
+							rov.setStatus(false);
+							return true;
+						}
 					}
 				}
-				for (MarsRoverImp rov : localMap.getSetRover()) {
-					if (rov.getX() == x && rov.getY() == i && rov.getStatus() == true) {
-						rov.setStatus(false);
-						break;
+				break;
+			case EAST:
+				for (int i = x + 1; i <= x + lazerRange; i++) {
+					for (Position pos : localMap.getSetPos()) {
+						if (pos.getX() == i && pos.getY() == y) {
+							localMap.getSetPos().remove(pos);
+							return true;
+						}
+					}
+					for (MarsRoverImp rov : localMap.getSetRover()) {
+						if (rov.getX() == i && rov.getY() == y  && rov.getStatus() == true) {
+							rov.setStatus(false);
+							return true;
+						}
 					}
 				}
-			}
-		case WEST:
-			for (int i = x - 1; i >= x - lazerRange; i--) {
-				for (Position pos : localMap.getSetPos()) {
-					if (pos.getX() == i && pos.getY() == y) {
-						localMap.getSetPos().remove(pos);
-						break;
-					}
-				}
-				for (MarsRoverImp rov : localMap.getSetRover()) {
-					if (rov.getX() == i && rov.getY() == y  && rov.getStatus() == true) {
-						rov.setStatus(false);
-						break;
-					}
-				}
-			}
-		case EAST:
-			for (int i = x + 1; i <= x + lazerRange; i++) {
-				for (Position pos : localMap.getSetPos()) {
-					if (pos.getX() == i && pos.getY() == y) {
-						localMap.getSetPos().remove(pos);
-						break;
-					}
-				}
-				for (MarsRoverImp rov : localMap.getSetRover()) {
-					if (rov.getX() == i && rov.getY() == y  && rov.getStatus() == true) {
-						rov.setStatus(false);
-						break;
-					}
-				}
-			}
+				break;
 		}
+		return false;
 	}
 
 	public void GenerateMap(int mapSize) {
