@@ -194,4 +194,19 @@ public class MarsRoverTest {
 		assertEquals(playerLoadingFalse.loadingPlayer("player", localMap), false);
 	}
 
+	//Test place is occupated should be true if something is in x,y
+	@Test
+    void isPlaceOccupatedTrue() {
+	    LocalMap localMap = new LocalMap();
+	    localMap.fillListObstacle(1,1);
+	    assertEquals(localMap.isPlaceOccupated(1,1, null), true);
+    }
+
+    //Test place is occupated should be false if something is in x,y
+    @Test
+    void isPlaceOccupatedFalse() {
+        LocalMap localMap = new LocalMap();
+        assertEquals(localMap.isPlaceOccupated(1,1, null), false);
+    }
+
 }
