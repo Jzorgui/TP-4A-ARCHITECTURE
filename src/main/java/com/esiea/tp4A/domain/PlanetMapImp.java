@@ -7,7 +7,6 @@ import java.util.Set;
 
 public class PlanetMapImp implements PlanetMap {
 
-	private Set<Position> set = new HashSet<Position>();
 	private int obstacleNumber;
 	private Random rand = new Random();
 	private LocalMap localMap;
@@ -16,6 +15,7 @@ public class PlanetMapImp implements PlanetMap {
 
 	@Override
 	public Set<Position> obstaclePositions() {
+		System.out.println("nombre d'obstacle  : "+obstacleNumber);
 		for (int i = 0; i < obstacleNumber; i++) {
 			bCreat=false;
 			while (bCreat == false) {
@@ -24,7 +24,7 @@ public class PlanetMapImp implements PlanetMap {
 				bCreat= localMap.fillListObstacle(x, y) ? true : false;
 			}
 		}
-		return set;
+		return null;
 	}
 	
 	public void setObstacleForTest(int x, int y,LocalMap localMap2) {

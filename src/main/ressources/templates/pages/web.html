@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Architecture_V2</title>
-    <link rel="stylesheet" href="web.css">
+    <link th:rel="stylesheet" href="web.css"/>
 </head>
 <body>
     <table>
@@ -13,7 +13,6 @@
         <tbody id="tbody">
         </tbody>
     </table>
-    <script src="test.js"></script>  
-    <script src="app.js"></script>  
+    <script th:src="@{app.js}"></script>
 </body>
 </html>
