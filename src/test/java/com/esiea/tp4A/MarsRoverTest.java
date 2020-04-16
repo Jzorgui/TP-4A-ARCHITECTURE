@@ -210,6 +210,19 @@ public class MarsRoverTest {
         assertEquals(localMap.isPlaceOccupated(1,1, null), false);
     }
     
+    // Test that we do not return place is occupated if it's occupated but by a dead rover
+    @Test 
+    void deadRoverPlaceNotOccupated() {
+    	LocalMap localMap = new LocalMap();
+    	MarsRoverImp marsRover = new MarsRoverImp();
+    	marsRover.setStatus(false);
+    	marsRover.setX(1);
+    	marsRover.setY(1);
+    	marsRover.setName("");
+    	localMap.fillListRover(marsRover);
+    	assertEquals(localMap.isPlaceOccupated(1, 1, " "), false);
+    }
+    
     //Verify if the size map is in {10, 30, 60}
     void mapSize() {
     	PartySettings party = new PartySettings();
@@ -226,4 +239,7 @@ public class MarsRoverTest {
     	
     }
 
+    //Verify that 
+    
 }
+
