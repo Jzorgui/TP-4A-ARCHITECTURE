@@ -10,7 +10,7 @@ public class LocalMap {
 
 	public boolean fillListObstacle(int x, int y) {
 
-		boolean ret = isPlaceOccupated(x, y) ? false : true;
+		boolean ret = isPlaceOccupated(x, y, "") ? false : true;
 
 		if (ret) {
 			setPos.add(Position.of(x, y, Direction.NORTH));
@@ -22,9 +22,9 @@ public class LocalMap {
 		int x = rover.getX();
 		int y = rover.getY();
 
-		if (isPlaceOccupated(x,y)) {
+		if (isPlaceOccupated(x, y, "")) {
 			return false;
-		} else if (!isPlaceOccupated(x,y)) {
+		} else if (!isPlaceOccupated(x, y, "")) {
 			if (setRover.size() > 50) {
 				return false;
 			}
@@ -34,26 +34,18 @@ public class LocalMap {
 		return false;
 	}
 
-	public boolean isPlaceOccupated(int x, int y) {
-		
-		boolean bReturn=false;
-
+	public boolean isPlaceOccupated(int x, int y, String name) {
 		for (Position pos : setPos) {
-			if (pos.getX() == x) {
-				if (pos.getY() == y) {
-					bReturn=true;
-				}
+			if (pos.getX() == x && pos.getY() == y) {
+				return true;
 			}
 		}
-
 		for (MarsRoverImp rov : setRover) {
-			if (rov.getX() == x) {
-				if (rov.getY() == y) {
-					bReturn=true;
-				}
+			if (rov.getX() == x && rov.getY() == y && !rov.getName().equals(name)) {
+				return true;
 			}
 		}
-		return bReturn;
+		return false;
 	}
 
 	public Set<Position> getSetPos() {

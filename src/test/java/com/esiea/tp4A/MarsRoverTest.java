@@ -156,10 +156,11 @@ public class MarsRoverTest {
 
 	// Create a player should be success if name not existing
 	LoadPlayer playerSuccess = new LoadPlayer();
-
+	
 	@Test
 	void isCreatePlayerTrue() {
-		assertEquals(playerSuccess.createPlayer("player"), true);
+		LocalMap localMap = new LocalMap();
+		assertEquals(playerSuccess.createPlayer("player", localMap), true);
 	}
 
 	// Create a player shouldn't be succes if name not existing
@@ -167,8 +168,9 @@ public class MarsRoverTest {
 
 	@Test
 	void isCreatePlayerFalse() {
-		playerEchec.createPlayer("player");
-		assertEquals(playerEchec.createPlayer("player"), false);
+		LocalMap localMap = new LocalMap();
+		playerEchec.createPlayer("player", localMap);
+		assertEquals(playerEchec.createPlayer("player", localMap), false);
 	}
 
 	// Loading a player should be success if name already exist
@@ -176,8 +178,10 @@ public class MarsRoverTest {
 
 	@Test
 	void isPlayerExistTrue() {
-		playerLoadingTrue.createPlayer("player");
-		assertEquals(playerLoadingTrue.loadingPlayer("player"), true);
+
+		LocalMap localMap = new LocalMap();
+		playerLoadingTrue.createPlayer("player", localMap);
+		assertEquals(playerLoadingTrue.loadingPlayer("player", localMap), true);
 	}
 
 	// Loading a player should be success if name already exist
@@ -185,7 +189,9 @@ public class MarsRoverTest {
 
 	@Test
 	void isPlayerExistFalse() {
-		assertEquals(playerLoadingFalse.loadingPlayer("player"), false);
+
+		LocalMap localMap = new LocalMap();
+		assertEquals(playerLoadingFalse.loadingPlayer("player", localMap), false);
 	}
 
 }

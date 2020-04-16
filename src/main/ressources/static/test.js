@@ -1,5 +1,5 @@
 var jsoon = {
-        "player": {
+    "player": {
         "name": "lol",
         "status": "alive",
         "position": {

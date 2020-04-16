@@ -24,9 +24,9 @@ public class PartySettings {
 	public int generateSizeMap() {
 		int mapSize;
 		List<Integer> sizePossibilities = new ArrayList<Integer>();
-		sizePossibilities.add(0, 100);
-		sizePossibilities.add(1, 300);
-		sizePossibilities.add(2, 600);
+		sizePossibilities.add(0, 10);
+		sizePossibilities.add(1, 30);
+		sizePossibilities.add(2, 60);
 		Random rand = new Random();
 		mapSize = sizePossibilities.get(rand.nextInt(3));
 		return mapSize;
@@ -46,12 +46,12 @@ public class PartySettings {
 		int yInitial = 0;
 		int i = 0;
 		while (i < 49) {
-			xInitial = -mapSize + (rand.nextInt(mapSize));
-			yInitial = -mapSize + (rand.nextInt(mapSize));
-			if (localMap.isPlaceOccupated(xInitial, yInitial)) {
+			xInitial = -mapSize/2 + (rand.nextInt(mapSize/2));
+			yInitial = -mapSize/2 + (rand.nextInt(mapSize/2));
+			if (localMap.isPlaceOccupated(xInitial, yInitial, "")) {
 				i++;
 				bCreat = false;
-			} else if (!localMap.isPlaceOccupated(xInitial, yInitial)) {
+			} else if (!localMap.isPlaceOccupated(xInitial, yInitial, "")) {
 				i += 49;
 				bCreat = true;
 			}

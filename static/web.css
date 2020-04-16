@@ -1,13 +1,77 @@
-.cell{
-    height: 1em;
-    border: 0.1em solid red;
-}
-
-.cell-grey{
-    background-color: rgb(187, 187, 187);
-}
-
 table{
+    /*width: 100%;
+    table-layout: fixed;*/
+    background-color: rgb(51, 50, 50);
+}
+
+.player {
     width: 100%;
-    table-layout: fixed;
+    background-image:url(perso1.png);
+}
+
+.enemies {
+    background-size: cover;
+    background-position: center center;
+    background-image:url(enemi1.png);
+    background-repeat: no-repeat;
+}
+
+.cell{
+    height: 2rem;
+    width: 2rem;
+    outline: 2px solid rgb(255, 191, 95);
+}
+
+.adaptative_heigh {
+    height: 2rem;
+}
+
+@media screen and (min-width: 992px) {
+    .cell{
+        height: 3rem;
+        width: 3rem;
+    }
+    .adaptative_heigh {
+        height: 3rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .cell{
+        height: 4rem;
+        width: 4rem;
+    }
+    .adaptative_heigh {
+        height: 4rem;
+    }
+}
+
+.player {
+    background-size: cover;
+    background-position: center center;
+    background-image:url(perso1.png);
+    background-repeat: no-repeat;
+}
+
+.obstacles {
+    background-size: cover;
+    background-position: center center;
+    background-image:url(caisse.png);
+    background-repeat: no-repeat;
+}
+
+.NORTH {
+    transform: rotate(0);
+}
+
+.EAST {
+    transform: rotate(90deg);
+}
+
+.WEST {
+    transform: rotate(-90deg);
+}
+
+.SOUTH {
+    transform: rotate(180deg);
 }
