@@ -239,7 +239,6 @@ public class MarsRoverTest {
     	
     }
 
-    //Verify that 
     
 }
 
