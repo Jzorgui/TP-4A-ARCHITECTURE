@@ -4,6 +4,7 @@ import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.LoadPlayer;
 import com.esiea.tp4A.domain.LocalMap;
 import com.esiea.tp4A.domain.MarsRoverImp;
+import com.esiea.tp4A.domain.PartySettings;
 import com.esiea.tp4A.domain.PlanetMapImp;
 import com.esiea.tp4A.domain.Position;
 
@@ -207,6 +208,22 @@ public class MarsRoverTest {
     void isPlaceOccupatedFalse() {
         LocalMap localMap = new LocalMap();
         assertEquals(localMap.isPlaceOccupated(1,1, null), false);
+    }
+    
+    //Verify if the size map is in {10, 30, 60}
+    void mapSize() {
+    	PartySettings party = new PartySettings();
+    	party.generateSizeMap();
+    	Assertions.assertThat(party.generateSizeMap()).isIn(10, 30, 60);
+    	
+    }
+    
+    //Verify if the lazer range is in {5,30,10 000}
+    void assertLazerRange() {
+    	PartySettings party = new PartySettings();
+    	party.generateSizeMap();
+    	Assertions.assertThat(party.setLazerRange()).isIn(5, 30, 10000);
+    	
     }
 
 }
