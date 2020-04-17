@@ -239,7 +239,12 @@ public class MarsRoverTest {
     	
     }
 
-    //Verify that 
-    
+    //Test that a name is not available
+    void roverNameNotAvailable() {
+    	LocalMap localMap = new LocalMap();
+    	LoadPlayer load = new LoadPlayer();
+    	load.createPlayer("player", localMap);
+    	assertEquals(load.createPlayer("player",localMap), false);
+    }
 }
 
