@@ -185,7 +185,7 @@ public class MarsRoverTest {
 		assertEquals(playerLoadingTrue.loadingPlayer("player", localMap), true);
 	}
 
-	// Loading a player should be success if name already exist
+	// Loading a player shouldn't be success if name already exist
 	LoadPlayer playerLoadingFalse = new LoadPlayer();
 
 	@Test
@@ -249,5 +249,6 @@ public class MarsRoverTest {
     	load.createPlayer("player", localMap);
     	assertEquals(load.createPlayer("player",localMap), false);
     }
+    
 }
 

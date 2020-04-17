@@ -178,4 +178,4 @@ function my_launch(){
 }
 
 
-window.setInterval( function() { received_newJson(pseudo); }, 1000);
+window.setInterval( function() { received_newJson(pseudo); }, 1500);
