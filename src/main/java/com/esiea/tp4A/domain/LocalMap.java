@@ -25,7 +25,7 @@ public class LocalMap {
 		if (isPlaceOccupated(x, y, "")) {
 			return false;
 		} else if (!isPlaceOccupated(x, y, "")) {
-			if (setRover.size() > 50) {
+			if (setRover.size() > 49) {
 				return false;
 			}
 			setRover.add(rover);

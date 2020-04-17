@@ -250,5 +250,70 @@ public class MarsRoverTest {
     	assertEquals(load.createPlayer("player",localMap), false);
     }
     
+    //Test filling LocalMap fillListRover function
+    @Test 
+    void isFillListRoverTrue() {
+    	LocalMap localMap = new LocalMap();
+    	MarsRoverImp marsRover = new MarsRoverImp("player");
+    	marsRover.setX(1);
+    	marsRover.setY(1);
+    	marsRover.setDirection(Direction.NORTH);
+    	marsRover.setStatus(true);
+    	assertEquals(localMap.fillListRover(marsRover), true);
+    }
+    
+    //Test filling LocalMap fillListRover function should return false is place is occupated
+    @Test 
+    void isFillListRoverFalse	() {
+    	LocalMap localMap = new LocalMap();
+    	MarsRoverImp marsRover = new MarsRoverImp("player");
+    	marsRover.setX(1);
+    	marsRover.setY(1);
+    	marsRover.setDirection(Direction.NORTH);
+    	marsRover.setStatus(true);
+    	
+    	//Obstacle at the rover place 
+    	localMap.fillListObstacle(1, 1);
+    	
+    	assertEquals(localMap.fillListRover(marsRover), false);
+    }
+    
+    
+  //Test filling LocalMap fillListRover function should return false if there is already 50 players
+    @Test 
+    void isFillListRoverFull() {
+    	LocalMap localMap = new LocalMap();
+    	MarsRoverImp marsRover = new MarsRoverImp("player");
+    	marsRover.setX(1);
+    	marsRover.setY(1);
+    	marsRover.setDirection(Direction.NORTH);
+    	marsRover.setStatus(true);
+    	
+    	//We create 50 players and fill list obstacle with
+    	for (int i=0; i<50; i++) {
+    		String name = "player"+i;
+    		MarsRoverImp rover = new MarsRoverImp(name);
+    		rover.setX(i);
+    		rover.setY(i-1);
+    		rover.setDirection(Direction.NORTH);
+    		rover.setStatus(true);
+    		
+    		localMap.fillListRover(rover);
+    	}
+    	assertEquals(localMap.fillListRover(marsRover), false);
+    }
+    
+    //Test LocalMap fillListObstacle
+    void isFillListObstacleTrue() {
+    	LocalMap localMap = new LocalMap();
+    	assertEquals(localMap.fillListObstacle(1, 1), true);
+    }
+    
+  //Test LocalMap fillListObstacle should return false if place is already occupated
+    void isFillListObstacleFalse() {
+    	LocalMap localMap = new LocalMap();
+    	localMap.fillListObstacle(1, 1);
+    	assertEquals(localMap.fillListObstacle(1, 1), false);
+    }
 }
 
