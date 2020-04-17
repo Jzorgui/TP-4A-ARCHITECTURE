@@ -224,6 +224,7 @@ public class MarsRoverTest {
     }
     
     //Verify if the size map is in {10, 30, 60}
+    @Test
     void mapSize() {
     	PartySettings party = new PartySettings();
     	party.generateSizeMap();
@@ -232,6 +233,7 @@ public class MarsRoverTest {
     }
     
     //Verify if the lazer range is in {5,30,10 000}
+    @Test
     void assertLazerRange() {
     	PartySettings party = new PartySettings();
     	party.generateSizeMap();
@@ -240,6 +242,7 @@ public class MarsRoverTest {
     }
 
     //Test that a name is not available
+    @Test
     void roverNameNotAvailable() {
     	LocalMap localMap = new LocalMap();
     	LoadPlayer load = new LoadPlayer();
