@@ -476,8 +476,8 @@ public class MarsRoverTest {
 	}
 
 	@Test
-	void lazerAttack() {
-		MarsRoverImp marsRoverLazer = new MarsRoverImp();
+	void lazerAttackNorthObstacle() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -493,9 +493,197 @@ public class MarsRoverTest {
 		marsRoverLazer.configureLaserRange(2);
 		marsRoverLazer.move("s");
 
-		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack")
+		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack north on obstacle")
 				.extracting(Position::getX, Position::getY, Position::getDirection)
 				.containsExactly(0, 1, Direction.NORTH);
+	}
+	
+	@Test
+	void lazerAttackNorthEnnemy() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverLazer.setLocalMap(localMap);
+		marsRoverLazer.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverLazer.GenerateMap(100);
+
+		// We initialize an Ennemy just ahead
+		MarsRoverImp ennemy = new MarsRoverImp("ennemy");
+		ennemy.setLocalMap(localMap);
+		ennemy.setX(0);
+		ennemy.setY(1);
+		ennemy.setStatus(true);
+		localMap.fillListRover(ennemy);
+		
+
+		marsRoverLazer.configureLaserRange(2);
+		marsRoverLazer.move("s");
+
+		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack north on ennemy")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 1, Direction.NORTH);
+	}
+	
+	@Test
+	void lazerAttackEastObstacle() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverLazer.setLocalMap(localMap);
+		marsRoverLazer.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverLazer.GenerateMap(100);
+		marsRoverLazer.move("r");
+
+		// We initialize an Obstacle just ahead
+		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(1, 0, localMap);
+
+		marsRoverLazer.configureLaserRange(2);
+		marsRoverLazer.move("s");
+
+		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack north on obstacle")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(1, 0, Direction.EAST);
+	}
+	
+	@Test
+	void lazerAttackEastEnnemy() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverLazer.setLocalMap(localMap);
+		marsRoverLazer.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverLazer.GenerateMap(100);
+		marsRoverLazer.move("r");
+
+		// We initialize an Ennemy just ahead
+		MarsRoverImp ennemy = new MarsRoverImp("ennemy");
+		ennemy.setLocalMap(localMap);
+		ennemy.setX(1);
+		ennemy.setY(0);
+		ennemy.setStatus(true);
+		localMap.fillListRover(ennemy);		
+
+		marsRoverLazer.configureLaserRange(2);
+		marsRoverLazer.move("s");
+
+		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack north on ennemy")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(1, 0, Direction.EAST);
+	}
+	
+	@Test
+	void lazerAttackSouthObstacle() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverLazer.setLocalMap(localMap);
+		marsRoverLazer.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverLazer.GenerateMap(100);
+		marsRoverLazer.move("r");
+		marsRoverLazer.move("r");
+
+		// We initialize an Obstacle just ahead
+		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(0, -1, localMap);
+
+		marsRoverLazer.configureLaserRange(2);
+		marsRoverLazer.move("s");
+
+		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack SOUTH on obstacle")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, -1, Direction.SOUTH);
+	}
+	
+	@Test
+	void lazerAttackSouthEnnemy() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverLazer.setLocalMap(localMap);
+		marsRoverLazer.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverLazer.GenerateMap(100);
+		marsRoverLazer.move("r");
+		marsRoverLazer.move("r");
+
+		// We initialize an Ennemy just ahead
+		MarsRoverImp ennemy = new MarsRoverImp("ennemy");
+		ennemy.setLocalMap(localMap);
+		ennemy.setX(0);
+		ennemy.setY(-1);
+		ennemy.setStatus(true);
+		localMap.fillListRover(ennemy);
+		
+
+		marsRoverLazer.configureLaserRange(2);
+		marsRoverLazer.move("s");
+
+		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack SOUTH on ennemy")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, -1, Direction.SOUTH);
+	}
+	
+	@Test
+	void lazerAttackWestObstacle() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverLazer.setLocalMap(localMap);
+		marsRoverLazer.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverLazer.GenerateMap(100);
+		marsRoverLazer.move("l");
+
+		// We initialize an Obstacle just ahead
+		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(-1, 0, localMap);
+
+		marsRoverLazer.configureLaserRange(2);
+		marsRoverLazer.move("s");
+
+		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack WEST on obstacle")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(-1, 0, Direction.WEST);
+	}
+	
+	@Test
+	void lazerAttackWESTEnnemy() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverLazer.setLocalMap(localMap);
+		marsRoverLazer.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverLazer.GenerateMap(100);
+		marsRoverLazer.move("l");
+
+		// We initialize an Ennemy just ahead
+		MarsRoverImp ennemy = new MarsRoverImp("ennemy");
+		ennemy.setLocalMap(localMap);
+		ennemy.setX(-1);
+		ennemy.setY(0);
+		ennemy.setStatus(true);
+		localMap.fillListRover(ennemy);
+		
+
+		marsRoverLazer.configureLaserRange(2);
+		marsRoverLazer.move("s");
+
+		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack SOUTH on ennemy")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(-1, 0, Direction.WEST);
 	}
 
 	//We verify the value of the Lazer after implementing
