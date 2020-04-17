@@ -1,8 +1,5 @@
 package com.esiea.tp4A.domain;
 
-import java.util.List;
-import java.util.Set;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,12 +9,13 @@ public class MarsRoverImp implements MarsRover {
 	private String name;
 	private int lazerRange = 0;
 	private boolean status = true;
-	private int x;
-	private int y;
+	private int x, y;
 	private Position position = Position.of(x, y, Direction.NORTH);
 	private Direction direction = position.getDirection();
 	private LocalMap localMap;
-
+	private final MarsRoverMove roverMove = new MarsRoverMove();
+	private final MarsRoverFunction roverFunc = new MarsRoverFunction();
+	
 	// MapRange
 	private int xMaxMap, yMaxMap, xMinMap, yMinMap;
 
@@ -31,6 +29,10 @@ public class MarsRoverImp implements MarsRover {
 
 	// Getters and Setters
 
+	public void setDirection(Direction direction) {
+		this.direction=direction;
+	}
+	
 	public void setLocalMap(LocalMap localMap) {
 		this.localMap = localMap;
 	}
@@ -106,86 +108,20 @@ public class MarsRoverImp implements MarsRover {
 		int initialY = y;
 		switch (command) {
 		case "f":
-			if (direction.equals(Direction.NORTH)) {
-				if (this.y < yMaxMap) {
-					this.y += 1;
-				} else if (this.y == yMaxMap) {
-					this.y = yMinMap;
-				}
-			} else if (direction.equals(Direction.SOUTH)) {
-				if (this.y > yMinMap) {
-					this.y -= 1;
-				} else if (this.y == yMinMap) {
-					this.y = yMaxMap;
-				}
-			} else if (direction.equals(Direction.EAST)) {
-				if (this.x < xMaxMap) {
-					this.x += 1;
-				} else if (this.x == xMaxMap) {
-					this.x = xMinMap;
-				}
-			} else if (direction.equals(Direction.WEST)) {
-				if (this.x > xMinMap) {
-					this.x -= 1;
-				} else if (this.x == xMinMap) {
-					this.x = xMaxMap;
-				}
-
-			}
+			roverMove.moveForward(direction, this);
 			break;
 		case "b":
-			if (direction.equals(Direction.NORTH)) {
-				if (this.y > yMinMap) {
-					this.y -= 1;
-				} else if (this.y == yMinMap) {
-					this.y = yMaxMap;
-				}
-			} else if (direction.equals(Direction.SOUTH)) {
-				if (this.y < yMaxMap) {
-					this.y += 1;
-				} else if (this.y == yMaxMap) {
-					this.y = yMinMap;
-				}
-			} else if (direction.equals(Direction.EAST)) {
-				if (this.x > xMinMap) {
-					this.x -= 1;
-				} else if (this.x == xMinMap) {
-					this.x = xMaxMap;
-				}
-			} else if (direction.equals(Direction.WEST)) {
-				if (this.x < xMaxMap) {
-					this.x += 1;
-				} else if (this.x == xMaxMap) {
-					this.x = xMinMap;
-				}
-			}
+			roverMove.moveBack(direction, this);
 			break;
 
 		case "l":
-			if (direction.equals(Direction.NORTH)) {
-				this.direction = Direction.WEST;
-			} else if (direction.equals(Direction.SOUTH)) {
-				this.direction = Direction.EAST;
-			} else if (direction.equals(Direction.EAST)) {
-				this.direction = Direction.NORTH;
-			} else if (direction.equals(Direction.WEST)) {
-				this.direction = Direction.SOUTH;
-			}
-
+			roverMove.turnLeft(direction, this);
 			break;
 		case "r":
-			if (direction.equals(Direction.NORTH)) {
-				this.direction = Direction.EAST;
-			} else if (direction.equals(Direction.SOUTH)) {
-				this.direction = Direction.WEST;
-			} else if (direction.equals(Direction.EAST)) {
-				this.direction = Direction.SOUTH;
-			} else if (direction.equals(Direction.WEST)) {
-				this.direction = Direction.NORTH;
-			}
+			roverMove.turnRight(direction, this);
 			break;
 		case "s":
-			if (lazerAttak(direction)) {
+			if (roverFunc.lazerAttak(direction, localMap, lazerRange, x, y)) {
 				System.out.println("You've destroyed something !");
 			} else {
 				System.out.println("You hired but Nothing happened");
@@ -199,77 +135,6 @@ public class MarsRoverImp implements MarsRover {
 		position = Position.of(x, y, direction);
 
 		return position;
-	}
-
-	public boolean lazerAttak(Direction direction) {
-		System.out.println(direction);
-		switch (direction) {
-			case NORTH:
-				for (int i = y + 1; i <= y + lazerRange; i++) {
-					for (Position pos : localMap.getSetPos()) {
-						if (pos.getX() == x && pos.getY() == i) {
-							localMap.getSetPos().remove(pos);
-							return true;
-						}
-					}
-					for (MarsRoverImp rov : localMap.getSetRover()) {
-						if (rov.getX() == x && rov.getY() == i && rov.getStatus() == true) {
-							rov.setStatus(false);
-							return true;
-						}
-					}
-				}
-				break;
-			case SOUTH:
-				for (int i = y - 1; i >= y - lazerRange; i--) {
-					for (Position pos : localMap.getSetPos()) {
-						if (pos.getX() == x && pos.getY() == i) {
-							localMap.getSetPos().remove(pos);
-							return true;
-						}
-					}
-					for (MarsRoverImp rov : localMap.getSetRover()) {
-						if (rov.getX() == x && rov.getY() == i && rov.getStatus() == true) {
-							rov.setStatus(false);
-							return true;
-						}
-					}
-				}
-				break;
-			case WEST:
-				for (int i = x - 1; i >= x - lazerRange; i--) {
-					for (Position pos : localMap.getSetPos()) {
-						if (pos.getX() == i && pos.getY() == y) {
-							localMap.getSetPos().remove(pos);
-							return true;
-						}
-					}
-					for (MarsRoverImp rov : localMap.getSetRover()) {
-						if (rov.getX() == i && rov.getY() == y  && rov.getStatus() == true) {
-							rov.setStatus(false);
-							return true;
-						}
-					}
-				}
-				break;
-			case EAST:
-				for (int i = x + 1; i <= x + lazerRange; i++) {
-					for (Position pos : localMap.getSetPos()) {
-						if (pos.getX() == i && pos.getY() == y) {
-							localMap.getSetPos().remove(pos);
-							return true;
-						}
-					}
-					for (MarsRoverImp rov : localMap.getSetRover()) {
-						if (rov.getX() == i && rov.getY() == y  && rov.getStatus() == true) {
-							rov.setStatus(false);
-							return true;
-						}
-					}
-				}
-				break;
-		}
-		return false;
 	}
 
 	public void GenerateMap(int mapSize) {
@@ -305,11 +170,6 @@ public class MarsRoverImp implements MarsRover {
 			}
 		}
 		return mapRadar;
-	}
-
-	@Override
-	public MarsRover updateMap(PlanetMap map) {
-		return this;
 	}
 
 	@Override

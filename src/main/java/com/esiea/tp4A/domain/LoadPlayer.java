@@ -6,7 +6,7 @@ public class LoadPlayer {
 	private  MarsRoverImp marsRover;
 	private final PartySettings party = new PartySettings();
 	private final JSONCreator responseJson = new JSONCreator();
-	private int lazerRange;
+	private final int lazerRange = party.setLazerRange();
 	private final int mapSize =  party.generateSizeMap();
 
 	public boolean createPlayer(String name, LocalMap localMap) {
@@ -25,7 +25,6 @@ public class LoadPlayer {
 	public void setPartySettings(LocalMap localMap) {
 		if (localMap.getSetRover().isEmpty()) {
 			party.generateObstacle(mapSize, localMap);
-			lazerRange = party.setLazerRange();
 		}
 		marsRover.GenerateMap(mapSize);
 		marsRover.setLocalMap(localMap);
