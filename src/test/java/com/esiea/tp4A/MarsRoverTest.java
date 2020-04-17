@@ -491,6 +491,7 @@ public class MarsRoverTest {
 
 		// We initialize an Obstacle just ahead
 		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(0, 2, localMap);
 		map.setObstacleForTest(0, 1, localMap);
 
 		marsRoverLazer.configureLaserRange(2);
@@ -512,7 +513,13 @@ public class MarsRoverTest {
 		marsRoverLazer.setPosition(Position.of(0, 0, Direction.NORTH));
 		marsRoverLazer.GenerateMap(100);
 
-		// We initialize an Ennemy just ahead
+		// We initialize two Ennemy just ahead
+		MarsRoverImp ennemy2 = new MarsRoverImp("ennemy2");
+		ennemy2.setLocalMap(localMap);
+		ennemy2.setX(0);
+		ennemy2.setY(1);
+		ennemy2.setStatus(true);
+		localMap.fillListRover(ennemy2);
 		MarsRoverImp ennemy = new MarsRoverImp("ennemy");
 		ennemy.setLocalMap(localMap);
 		ennemy.setX(0);
@@ -543,6 +550,7 @@ public class MarsRoverTest {
 
 		// We initialize an Obstacle just ahead
 		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(2, 0, localMap);
 		map.setObstacleForTest(1, 0, localMap);
 
 		marsRoverLazer.configureLaserRange(2);
@@ -566,12 +574,18 @@ public class MarsRoverTest {
 		marsRoverLazer.move("r");
 
 		// We initialize an Ennemy just ahead
+		MarsRoverImp ennemy2 = new MarsRoverImp("ennemy2");
+		ennemy2.setLocalMap(localMap);
+		ennemy2.setX(2);
+		ennemy2.setY(0);
+		ennemy2.setStatus(true);
+		localMap.fillListRover(ennemy2);
 		MarsRoverImp ennemy = new MarsRoverImp("ennemy");
 		ennemy.setLocalMap(localMap);
 		ennemy.setX(1);
 		ennemy.setY(0);
 		ennemy.setStatus(true);
-		localMap.fillListRover(ennemy);		
+		localMap.fillListRover(ennemy);	
 
 		marsRoverLazer.configureLaserRange(2);
 		marsRoverLazer.move("s");
@@ -596,6 +610,7 @@ public class MarsRoverTest {
 
 		// We initialize an Obstacle just ahead
 		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(0, -2, localMap);
 		map.setObstacleForTest(0, -1, localMap);
 
 		marsRoverLazer.configureLaserRange(2);
@@ -620,6 +635,12 @@ public class MarsRoverTest {
 		marsRoverLazer.move("r");
 
 		// We initialize an Ennemy just ahead
+		MarsRoverImp ennemy2 = new MarsRoverImp("ennemy2");
+		ennemy2.setLocalMap(localMap);
+		ennemy2.setX(0);
+		ennemy2.setY(-2);
+		ennemy2.setStatus(true);
+		localMap.fillListRover(ennemy2);
 		MarsRoverImp ennemy = new MarsRoverImp("ennemy");
 		ennemy.setLocalMap(localMap);
 		ennemy.setX(0);
@@ -650,6 +671,7 @@ public class MarsRoverTest {
 
 		// We initialize an Obstacle just ahead
 		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(-2, 0, localMap);
 		map.setObstacleForTest(-1, 0, localMap);
 
 		marsRoverLazer.configureLaserRange(2);
@@ -673,6 +695,12 @@ public class MarsRoverTest {
 		marsRoverLazer.move("l");
 
 		// We initialize an Ennemy just ahead
+		MarsRoverImp ennemy2 = new MarsRoverImp("ennemy2");
+		ennemy2.setLocalMap(localMap);
+		ennemy2.setX(-2);
+		ennemy2.setY(0);
+		ennemy2.setStatus(true);
+		localMap.fillListRover(ennemy2);
 		MarsRoverImp ennemy = new MarsRoverImp("ennemy");
 		ennemy.setLocalMap(localMap);
 		ennemy.setX(-1);
