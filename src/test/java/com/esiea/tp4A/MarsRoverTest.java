@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
 
 public class MarsRoverTest {
 
-	private MarsRoverImp marsRoverForward = new MarsRoverImp();
 
 	@Test
-	void moveForward() {
+	void moveForwardwhenNorth() {
+		MarsRoverImp marsRoverForward = new MarsRoverImp();
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -26,16 +26,66 @@ public class MarsRoverTest {
 		marsRoverForward.setLocalMap(localMap);
 		marsRoverForward.setPosition(Position.of(0, 0, Direction.NORTH));
 		marsRoverForward.GenerateMap(50);
-
-		Assertions.assertThat(marsRoverForward.move(command)).as("moving forward")
+		Assertions.assertThat(marsRoverForward.move(command)).as("moving forward NORTH")
 				.extracting(Position::getX, Position::getY, Position::getDirection)
 				.containsExactly(0, 1, Direction.NORTH);
 	}
+	
+	@Test
+	void moveForwardwhenSouth() {
+		MarsRoverImp marsRoverForward = new MarsRoverImp();
+		String command = "f";
 
-	private MarsRoverImp marsRoverBack = new MarsRoverImp();
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverForward.setLocalMap(localMap);
+		marsRoverForward.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverForward.GenerateMap(50);
+		//Turning to SOUTH 
+		marsRoverForward.move("r");
+		marsRoverForward.move("r");
+		Assertions.assertThat(marsRoverForward.move(command)).as("moving forward SOUTH")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, -1, Direction.SOUTH);
+	}
+	
+	@Test
+	void moveForwardwhenEast() {
+		MarsRoverImp marsRoverForward = new MarsRoverImp();
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverForward.setLocalMap(localMap);
+		marsRoverForward.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverForward.GenerateMap(50);
+		//Turning to EAST 
+		marsRoverForward.move("r");
+		Assertions.assertThat(marsRoverForward.move(command)).as("moving forward EAST")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(1, 0, Direction.EAST);
+	}
+	
+	@Test
+	void moveForwardwhenWest() {
+		MarsRoverImp marsRoverForward = new MarsRoverImp();
+		String command = "f";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverForward.setLocalMap(localMap);
+		marsRoverForward.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverForward.GenerateMap(50);
+		//Turning to WEST 
+		marsRoverForward.move("l");
+		Assertions.assertThat(marsRoverForward.move(command)).as("moving forward WEST")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(-1, 0, Direction.WEST);
+	}
 
 	@Test
-	void moveBackward() {
+	void moveBackwardWhenNorth() {
+		MarsRoverImp marsRoverBack = new MarsRoverImp();
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -44,45 +94,194 @@ public class MarsRoverTest {
 		marsRoverBack.setPosition(Position.of(0, 0, Direction.NORTH));
 		marsRoverBack.GenerateMap(50);
 
-		Assertions.assertThat(marsRoverBack.move(command)).as("moving backward")
+		Assertions.assertThat(marsRoverBack.move(command)).as("moving backward when NORTH")
 				.extracting(Position::getX, Position::getY, Position::getDirection)
 				.containsExactly(0, -1, Direction.NORTH);
 	}
-
-	private MarsRoverImp marsRoverEast = new MarsRoverImp();
-
+	
 	@Test
-	void changeToEast() {
+	void moveBackwardWhenSouth() {
+		MarsRoverImp marsRoverBack = new MarsRoverImp();
+		String command = "b";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverBack.setLocalMap(localMap);
+		marsRoverBack.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverBack.GenerateMap(50);
+		//Turning to WEST 
+		marsRoverBack.move("l");
+		marsRoverBack.move("l");
+
+		Assertions.assertThat(marsRoverBack.move(command)).as("moving backward when SOUTH")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 1, Direction.SOUTH);
+	}
+	
+	@Test
+	void moveBackwardWhenEast() {
+		MarsRoverImp marsRoverBack = new MarsRoverImp();
+		String command = "b";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverBack.setLocalMap(localMap);
+		marsRoverBack.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverBack.GenerateMap(50);
+		//Turning to WEST 
+		marsRoverBack.move("r");
+
+		Assertions.assertThat(marsRoverBack.move(command)).as("moving backward when EAST")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(-1, 0, Direction.EAST);
+	}
+	
+	@Test
+	void moveBackwardWhenWest() {
+		MarsRoverImp marsRoverBack = new MarsRoverImp();
+		String command = "b";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverBack.setLocalMap(localMap);
+		marsRoverBack.setPosition(Position.of(0, 0, Direction.NORTH));
+		marsRoverBack.GenerateMap(50);
+		//Turning to WEST 
+		marsRoverBack.move("l");
+
+		Assertions.assertThat(marsRoverBack.move(command)).as("moving backward when WEST")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(1, 0, Direction.WEST);
+	}
+	
+	@Test
+	void changeToEastWhenNorth() {
+		MarsRoverImp marsRoverEast = new MarsRoverImp();
 		String command = "r";
 
 		// We initialize the Rover for test
 		LocalMap localMap = new LocalMap();
 		marsRoverEast.setLocalMap(localMap);
 
-		Assertions.assertThat(marsRoverEast.move(command)).as("looking to east")
+		Assertions.assertThat(marsRoverEast.move(command)).as("looking to east when north")
 				.extracting(Position::getX, Position::getY, Position::getDirection)
 				.containsExactly(0, 0, Direction.EAST);
 	}
+	
+	@Test
+	void changeToSouthWhenEast() {
+		MarsRoverImp marsRoverEast = new MarsRoverImp();
+		String command = "r";
 
-	private MarsRoverImp marsRoverWest = new MarsRoverImp();
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverEast.setLocalMap(localMap);
+		marsRoverEast.move("r");
+
+		Assertions.assertThat(marsRoverEast.move(command)).as("looking to south when east")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 0, Direction.SOUTH);
+	}
+	
+	@Test
+	void changeToWestWhenSouth() {
+		MarsRoverImp marsRoverEast = new MarsRoverImp();
+		String command = "r";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverEast.setLocalMap(localMap);
+		marsRoverEast.move("r");
+		marsRoverEast.move("r");
+
+		Assertions.assertThat(marsRoverEast.move(command)).as("looking to west when south")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 0, Direction.WEST);
+	}
+	
+	@Test
+	void changeToNorthWhenWest() {
+		MarsRoverImp marsRoverEast = new MarsRoverImp();
+		String command = "r";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverEast.setLocalMap(localMap);
+		marsRoverEast.move("r");
+		marsRoverEast.move("r");
+		marsRoverEast.move("r");
+
+		Assertions.assertThat(marsRoverEast.move(command)).as("looking to North when west")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 0, Direction.NORTH);
+	}
+
 
 	@Test
-	void changeToWest() {
+	void changeToWestWhenNorth() {
+		MarsRoverImp marsRoverWest = new MarsRoverImp();
 		String command = "l";
 
 		// We initialize the Rover for test
 		LocalMap localMap = new LocalMap();
 		marsRoverWest.setLocalMap(localMap);
 
-		Assertions.assertThat(marsRoverWest.move(command)).as("looking to west")
+		Assertions.assertThat(marsRoverWest.move(command)).as("looking to west when north")
 				.extracting(Position::getX, Position::getY, Position::getDirection)
 				.containsExactly(0, 0, Direction.WEST);
 	}
+	
+	@Test
+	void changeToSouthWhenWest() {
+		MarsRoverImp marsRoverWest = new MarsRoverImp();
+		String command = "l";
 
-	private MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverWest.setLocalMap(localMap);
+		marsRoverWest.move(command);
+
+		Assertions.assertThat(marsRoverWest.move(command)).as("looking to west when north")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 0, Direction.SOUTH);
+	}
+	
+	@Test
+	void changeToEastWhenSouth() {
+		MarsRoverImp marsRoverWest = new MarsRoverImp();
+		String command = "l";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverWest.setLocalMap(localMap);
+		marsRoverWest.move(command);
+		marsRoverWest.move(command);
+
+		Assertions.assertThat(marsRoverWest.move(command)).as("looking to east when south")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 0, Direction.EAST);
+	}
+	
+	@Test
+	void changeToNorthWhenEast() {
+		MarsRoverImp marsRoverWest = new MarsRoverImp();
+		String command = "l";
+
+		// We initialize the Rover for test
+		LocalMap localMap = new LocalMap();
+		marsRoverWest.setLocalMap(localMap);
+		marsRoverWest.move(command);
+		marsRoverWest.move(command);
+		marsRoverWest.move(command);
+
+		Assertions.assertThat(marsRoverWest.move(command)).as("looking to north when east")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 0, Direction.NORTH);
+	}
 
 	@Test
 	void moveForwardOnEndOfGrid() {
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -101,10 +300,9 @@ public class MarsRoverTest {
 				.containsExactly(0, -50, Direction.NORTH);
 	}
 
-	private MarsRoverImp marsRoverObstacle = new MarsRoverImp();
-
 	@Test
 	void moveForwardWithObstacle() {
+		MarsRoverImp marsRoverObstacle = new MarsRoverImp();
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -122,10 +320,9 @@ public class MarsRoverTest {
 				.containsExactly(0, 0, Direction.NORTH);
 	}
 
-	private MarsRoverImp marsRoverLazer = new MarsRoverImp();
-
 	@Test
 	void lazerAttack() {
+		MarsRoverImp marsRoverLazer = new MarsRoverImp();
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -146,50 +343,45 @@ public class MarsRoverTest {
 				.containsExactly(0, 1, Direction.NORTH);
 	}
 
-	private MarsRoverImp marsLazerRange = new MarsRoverImp();
-
 	//We verify the value of the Lazer after implementing
 	@Test
 	void lazerRange() {
+		MarsRoverImp marsLazerRange = new MarsRoverImp();
 		marsLazerRange.configureLaserRange(8);
 		assertEquals(marsLazerRange.getLazerRange(), 8);
 	}
 
 	// Create a player should be success if name not existing
-	LoadPlayer playerSuccess = new LoadPlayer();
-	
+
 	@Test
-	void isCreatePlayerTrue() {
+	void isCreatePlayerTrue() {	
+		LoadPlayer playerSuccess = new LoadPlayer();
 		LocalMap localMap = new LocalMap();
 		assertEquals(playerSuccess.createPlayer("player", localMap), true);
 	}
 
 	// Create a player shouldn't be succes if name not existing
-	LoadPlayer playerEchec = new LoadPlayer();
-
 	@Test
 	void isCreatePlayerFalse() {
+		LoadPlayer playerEchec = new LoadPlayer();
 		LocalMap localMap = new LocalMap();
 		playerEchec.createPlayer("player", localMap);
 		assertEquals(playerEchec.createPlayer("player", localMap), false);
 	}
 
 	// Loading a player should be success if name already exist
-	LoadPlayer playerLoadingTrue = new LoadPlayer();
-
 	@Test
 	void isPlayerExistTrue() {
-
+		LoadPlayer playerLoadingTrue = new LoadPlayer();
 		LocalMap localMap = new LocalMap();
 		playerLoadingTrue.createPlayer("player", localMap);
 		assertEquals(playerLoadingTrue.loadingPlayer("player", localMap), true);
 	}
 
 	// Loading a player shouldn't be success if name already exist
-	LoadPlayer playerLoadingFalse = new LoadPlayer();
-
 	@Test
 	void isPlayerExistFalse() {
+		LoadPlayer playerLoadingFalse = new LoadPlayer();
 
 		LocalMap localMap = new LocalMap();
 		assertEquals(playerLoadingFalse.loadingPlayer("player", localMap), false);
