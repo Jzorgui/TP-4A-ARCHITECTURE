@@ -939,5 +939,26 @@ public class MarsRoverTest {
     	assertEquals(jsonResult.returnJson(marsRoverRadar, localMap).toString(), expectedFinal.toString());
     	
     }
+    
+    //Test moving rover from LoadPlayer class which represent the current player
+    @Test
+    void movePlayer() {
+    	LocalMap localMap = new LocalMap();
+    	LoadPlayer load = new LoadPlayer();
+    	load.createPlayer("player", localMap);
+    	MarsRoverImp marsRover = new MarsRoverImp();
+    	int y=0;
+    	for (MarsRoverImp rov : localMap.getSetRover()) {
+    		if (rov.getName().equals("player")) {
+    		marsRover = rov;
+    		y=marsRover.getY();
+    		}
+    	}
+    	load.moveRover("f");
+    	
+    	assertEquals(marsRover.getY(), y+1);
+    }
+    
+    
 }
 
