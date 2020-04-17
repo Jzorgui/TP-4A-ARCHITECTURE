@@ -7,10 +7,13 @@ import com.esiea.tp4A.domain.MarsRoverImp;
 import com.esiea.tp4A.domain.PartySettings;
 import com.esiea.tp4A.domain.PlanetMapImp;
 import com.esiea.tp4A.domain.Position;
+import com.esiea.tp4A.spring.JSONCreator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.assertj.core.api.Assertions;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 public class MarsRoverTest {
@@ -839,16 +842,74 @@ public class MarsRoverTest {
     }
     
     //Test LocalMap fillListObstacle
+    @Test
     void isFillListObstacleTrue() {
     	LocalMap localMap = new LocalMap();
     	assertEquals(localMap.fillListObstacle(1, 1), true);
     }
     
   //Test LocalMap fillListObstacle should return false if place is already occupated
+    @Test
     void isFillListObstacleFalse() {
     	LocalMap localMap = new LocalMap();
     	localMap.fillListObstacle(1, 1);
     	assertEquals(localMap.fillListObstacle(1, 1), false);
+    }
+    
+    //JsonRadar Ennemy test
+    @Test
+    void jsonRadarEnnemy() throws Exception {
+    	LocalMap localMap = new LocalMap();
+    	MarsRoverImp marsRoverRadar= new MarsRoverImp("player");
+    	marsRoverRadar.setX(0);
+    	marsRoverRadar.setY(0);
+    	marsRoverRadar.setDirection(Direction.NORTH);
+    	marsRoverRadar.configureLaserRange(3);
+    	marsRoverRadar.setLocalMap(localMap);
+    	marsRoverRadar.GenerateMap(30);
+    	localMap.fillListRover(marsRoverRadar);
+    	
+    	//We create an ennemy we want to see on radar;
+    	MarsRoverImp ennemy = new MarsRoverImp("ennemy");
+    	ennemy.setLocalMap(localMap);
+    	ennemy.setX(0);
+    	ennemy.setY(1);
+    	ennemy.setDirection(Direction.NORTH);
+    	ennemy.setStatus(true);
+    	localMap.fillListRover(ennemy);
+    	localMap.fillListObstacle(0, 2);
+    	
+    	LoadPlayer load = new LoadPlayer();
+    	load.loadingPlayer("player", localMap);
+    	JSONObject json = marsRoverRadar.radarEnnemie(localMap).getJSONObject(0);
+    	
+    	JSONArray expectedEnnemy = new JSONArray().put(new JSONObject()
+    			.put("x", 0)
+    			.put("name", "ennemy")
+    			.put("y", 1));
+    	
+    	JSONArray expectedObstacle = new JSONArray().put(new JSONObject()
+    			.put("x", 0)
+    			.put("y", 2));
+    	
+    	JSONObject expectedRadar = new JSONObject()
+    			.put("Ennemies", expectedEnnemy)
+    			.put("Obstacles", expectedObstacle)
+    			.put("size", 30);
+    	
+    	JSONObject expectedPlayer = new JSONObject()
+    			.put("name", "player")
+    			.put("status", true)
+    			.put("lazerRange", 3)
+    			.put("position", new JSONObject().put("x", 0).put("y", 0).put("direction", "NORTH"));
+    	
+    	JSONObject expectedFinal = new JSONObject()
+    			.put("player", expectedPlayer)
+    			.put("localmap", expectedRadar);
+    			
+    	JSONCreator jsonResult = new JSONCreator();		
+    	assertEquals(jsonResult.returnJson(marsRoverRadar, localMap).toString(), expectedFinal.toString());
+    	
     }
 }
 
