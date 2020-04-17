@@ -934,9 +934,8 @@ public class MarsRoverTest {
     	JSONObject expectedFinal = new JSONObject()
     			.put("player", expectedPlayer)
     			.put("localmap", expectedRadar);
-    			
-    	JSONCreator jsonResult = new JSONCreator();		
-    	assertEquals(jsonResult.returnJson(marsRoverRadar, localMap).toString(), expectedFinal.toString());
+    				
+    	assertEquals(load.getJSONResponse(localMap), expectedFinal.toString());
     	
     }
     
