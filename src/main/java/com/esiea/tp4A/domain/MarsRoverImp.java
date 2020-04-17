@@ -164,7 +164,7 @@ public class MarsRoverImp implements MarsRover {
 			for (int p = y - 16; p < y + 16; p++) {
 				for (MarsRoverImp rov : localMap2.getSetRover()) {
 					if (rov.getX() == i && rov.getY() == p && !rov.getName().equals(name)) {
-						mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name", name));
+						mapRadar.put(new JSONObject().put("x", rov.getX()).put("y", rov.getY()).put("name", rov.getName()));
 					}
 				}
 			}
