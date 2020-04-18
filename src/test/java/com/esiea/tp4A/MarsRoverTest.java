@@ -983,7 +983,5 @@ public class MarsRoverTest {
     	
     	assertEquals(marsRover.getY(), y+1);
     }
-    
-    
 }
 
