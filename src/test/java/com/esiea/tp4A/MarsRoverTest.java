@@ -3,6 +3,7 @@ package com.esiea.tp4A;
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.LoadPlayer;
 import com.esiea.tp4A.domain.LocalMap;
+import com.esiea.tp4A.domain.MarsRoverFunction;
 import com.esiea.tp4A.domain.MarsRoverImp;
 import com.esiea.tp4A.domain.PartySettings;
 import com.esiea.tp4A.domain.PlanetMapImp;
@@ -21,7 +22,7 @@ public class MarsRoverTest {
 
 	@Test
 	void moveForwardwhenNorth() {
-		MarsRoverImp marsRoverForward = new MarsRoverImp();
+		MarsRoverImp marsRoverForward = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -36,7 +37,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveForwardwhenSouth() {
-		MarsRoverImp marsRoverForward = new MarsRoverImp();
+		MarsRoverImp marsRoverForward = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -54,7 +55,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveForwardwhenEast() {
-		MarsRoverImp marsRoverForward = new MarsRoverImp();
+		MarsRoverImp marsRoverForward = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -71,7 +72,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveForwardwhenWest() {
-		MarsRoverImp marsRoverForward = new MarsRoverImp();
+		MarsRoverImp marsRoverForward = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -88,7 +89,7 @@ public class MarsRoverTest {
 
 	@Test
 	void moveBackwardWhenNorth() {
-		MarsRoverImp marsRoverBack = new MarsRoverImp();
+		MarsRoverImp marsRoverBack = new MarsRoverImp("");
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -104,7 +105,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveBackwardWhenSouth() {
-		MarsRoverImp marsRoverBack = new MarsRoverImp();
+		MarsRoverImp marsRoverBack = new MarsRoverImp("");
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -123,7 +124,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveBackwardWhenEast() {
-		MarsRoverImp marsRoverBack = new MarsRoverImp();
+		MarsRoverImp marsRoverBack = new MarsRoverImp("");
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -141,7 +142,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveBackwardWhenWest() {
-		MarsRoverImp marsRoverBack = new MarsRoverImp();
+		MarsRoverImp marsRoverBack = new MarsRoverImp("");
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -159,7 +160,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void changeToEastWhenNorth() {
-		MarsRoverImp marsRoverEast = new MarsRoverImp();
+		MarsRoverImp marsRoverEast = new MarsRoverImp("");
 		String command = "r";
 
 		// We initialize the Rover for test
@@ -173,7 +174,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void changeToSouthWhenEast() {
-		MarsRoverImp marsRoverEast = new MarsRoverImp();
+		MarsRoverImp marsRoverEast = new MarsRoverImp("");
 		String command = "r";
 
 		// We initialize the Rover for test
@@ -188,7 +189,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void changeToWestWhenSouth() {
-		MarsRoverImp marsRoverEast = new MarsRoverImp();
+		MarsRoverImp marsRoverEast = new MarsRoverImp("");
 		String command = "r";
 
 		// We initialize the Rover for test
@@ -204,7 +205,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void changeToNorthWhenWest() {
-		MarsRoverImp marsRoverEast = new MarsRoverImp();
+		MarsRoverImp marsRoverEast = new MarsRoverImp("");
 		String command = "r";
 
 		// We initialize the Rover for test
@@ -222,7 +223,7 @@ public class MarsRoverTest {
 
 	@Test
 	void changeToWestWhenNorth() {
-		MarsRoverImp marsRoverWest = new MarsRoverImp();
+		MarsRoverImp marsRoverWest = new MarsRoverImp("");
 		String command = "l";
 
 		// We initialize the Rover for test
@@ -236,7 +237,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void changeToSouthWhenWest() {
-		MarsRoverImp marsRoverWest = new MarsRoverImp();
+		MarsRoverImp marsRoverWest = new MarsRoverImp("");
 		String command = "l";
 
 		// We initialize the Rover for test
@@ -251,7 +252,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void changeToEastWhenSouth() {
-		MarsRoverImp marsRoverWest = new MarsRoverImp();
+		MarsRoverImp marsRoverWest = new MarsRoverImp("");
 		String command = "l";
 
 		// We initialize the Rover for test
@@ -267,7 +268,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void changeToNorthWhenEast() {
-		MarsRoverImp marsRoverWest = new MarsRoverImp();
+		MarsRoverImp marsRoverWest = new MarsRoverImp("");
 		String command = "l";
 
 		// We initialize the Rover for test
@@ -284,7 +285,7 @@ public class MarsRoverTest {
 
 	@Test
 	void moveForwardOnEndOfGridNorthSide() {
-		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -305,7 +306,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveForwardOnEndOfGridEastSide() {
-		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -327,7 +328,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveForwardOnEndOfGridSouthSide() {
-		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -350,7 +351,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveForwardOnEndOfGridWestSide() {
-		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -372,7 +373,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveBackOnEndOfGridSouthSide() {
-		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp("");
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -393,7 +394,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveBackOnEndOfGridWestSide() {
-		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp("");
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -415,7 +416,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveBackOnEndOfGridNorthSide() {
-		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp("");
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -438,7 +439,7 @@ public class MarsRoverTest {
 
 	@Test
 	void moveBackOnEndOfGridEastSide() {
-		MarsRoverImp marsRoverPlanet = new MarsRoverImp();
+		MarsRoverImp marsRoverPlanet = new MarsRoverImp("");
 		String command = "b";
 
 		// We initialize the Rover for test
@@ -460,7 +461,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void moveForwardWithObstacle() {
-		MarsRoverImp marsRoverObstacle = new MarsRoverImp();
+		MarsRoverImp marsRoverObstacle = new MarsRoverImp("");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -716,11 +717,39 @@ public class MarsRoverTest {
 				.extracting(Position::getX, Position::getY, Position::getDirection)
 				.containsExactly(-1, 0, Direction.WEST);
 	}
+	
+	@Test
+	void lazerNorthVoid() {
+		LocalMap localMap = new LocalMap();
+		MarsRoverFunction roverFunction = new MarsRoverFunction();
+		assertEquals(roverFunction.lazerAttak(Direction.NORTH, localMap, 2, 0, 0), false);
+	}
+	
+	@Test
+	void lazerSouthVoid() {
+		LocalMap localMap = new LocalMap();
+		MarsRoverFunction roverFunction = new MarsRoverFunction();
+		assertEquals(roverFunction.lazerAttak(Direction.SOUTH, localMap, 2, 0, 0), false);
+	}
+	
+	@Test
+	void lazerEastVoid() {
+		LocalMap localMap = new LocalMap();
+		MarsRoverFunction roverFunction = new MarsRoverFunction();
+		assertEquals(roverFunction.lazerAttak(Direction.EAST, localMap, 2, 0, 0), false);
+	}
+	
+	@Test
+	void lazerWestVoid() {
+		LocalMap localMap = new LocalMap();
+		MarsRoverFunction roverFunction = new MarsRoverFunction();
+		assertEquals(roverFunction.lazerAttak(Direction.WEST, localMap, 2, 0, 0), false);
+	}
 
 	//We verify the value of the Lazer after implementing
 	@Test
 	void lazerRange() {
-		MarsRoverImp marsLazerRange = new MarsRoverImp();
+		MarsRoverImp marsLazerRange = new MarsRoverImp("");
 		marsLazerRange.configureLaserRange(8);
 		assertEquals(marsLazerRange.getLazerRange(), 8);
 	}
@@ -756,7 +785,6 @@ public class MarsRoverTest {
 	@Test
 	void isPlayerExistFalse() {
 		LoadPlayer playerLoadingFalse = new LoadPlayer();
-
 		LocalMap localMap = new LocalMap();
 		assertEquals(playerLoadingFalse.loadingPlayer("player", localMap), false);
 	}
@@ -780,11 +808,10 @@ public class MarsRoverTest {
     @Test 
     void deadRoverPlaceNotOccupated() {
     	LocalMap localMap = new LocalMap();
-    	MarsRoverImp marsRover = new MarsRoverImp();
+    	MarsRoverImp marsRover = new MarsRoverImp("");
     	marsRover.setStatus(false);
     	marsRover.setX(1);
     	marsRover.setY(1);
-    	marsRover.setName("");
     	localMap.fillListRover(marsRover);
     	assertEquals(localMap.isPlaceOccupated(1, 1, " "), false);
     }
@@ -936,7 +963,6 @@ public class MarsRoverTest {
     			.put("localmap", expectedRadar);
     				
     	assertEquals(load.getJSONResponse(localMap), expectedFinal.toString());
-    	
     }
     
     //Test moving rover from LoadPlayer class which represent the current player

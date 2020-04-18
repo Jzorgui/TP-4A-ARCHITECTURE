@@ -10,21 +10,22 @@ public class PlanetMapImp implements PlanetMap {
 	private int obstacleNumber;
 	private Random rand = new Random();
 	private LocalMap localMap;
-	private boolean bCreat;
 	private int mapSize;
 
 	@Override
 	public Set<Position> obstaclePositions() {
+		Set<Position> set = new HashSet<Position>();
 		System.out.println("nombre d'obstacle  : "+obstacleNumber);
 		for (int i = 0; i < obstacleNumber; i++) {
-			bCreat=false;
+			boolean bCreat=false;
 			while (bCreat == false) {
 				int x = -mapSize/2 + (rand.nextInt(mapSize));
 				int y = -mapSize/2 + (rand.nextInt(mapSize));
 				bCreat= localMap.fillListObstacle(x, y) ? true : false;
+				set.add(Position.of(x, y, Direction.NORTH));
 			}
 		}
-		return null;
+		return set;
 	}
 	
 	public void setObstacleForTest(int x, int y,LocalMap localMap2) {
