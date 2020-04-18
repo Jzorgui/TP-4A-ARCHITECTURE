@@ -24,14 +24,13 @@ public class LocalMap {
 
 		if (isPlaceOccupated(x, y, "")) {
 			return false;
-		} else if (!isPlaceOccupated(x, y, "")) {
+		} else  {
 			if (setRover.size() > 50) {
 				return false;
 			}
 			setRover.add(rover);
 			return true;
 		}
-		return false;
 	}
 
 	public boolean isPlaceOccupated(int x, int y, String name) {

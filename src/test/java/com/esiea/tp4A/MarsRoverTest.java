@@ -3,6 +3,7 @@ package com.esiea.tp4A;
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.LoadPlayer;
 import com.esiea.tp4A.domain.LocalMap;
+import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.MarsRoverFunction;
 import com.esiea.tp4A.domain.MarsRoverImp;
 import com.esiea.tp4A.domain.PartySettings;
@@ -26,7 +27,7 @@ public class MarsRoverTest {
 	@Test
 	void initializeRoverPos() {
 		MarsRoverImp marsRover = new MarsRoverImp();
-		marsRover.initialize(Position.of(0, 2, Direction.SOUTH));
+		MarsRover rover = marsRover.initialize(Position.of(0, 2, Direction.SOUTH));
 		Position pos = marsRover.getPosition();
 		Assertions.assertThat(pos).as("test init pos")
 		.extracting(Position::getX, Position::getY, Position::getDirection)
@@ -41,7 +42,6 @@ public class MarsRoverTest {
 		map.obstaclePositions();
 		marsRover.updateMap(map);
 		marsRover.move("s");
-
 		Assertions.assertThat(marsRover.move("f")).as("moving forward NORTH")
 				.extracting(Position::getX, Position::getY, Position::getDirection)
 				.containsExactly(0, 1, Direction.NORTH);
@@ -390,7 +390,7 @@ public class MarsRoverTest {
 		marsRoverLazer.updateMap(map);
 		marsRoverLazer.getLocalMap().fillListObstacle(0, 1);
 
-		marsRoverLazer.configureLaserRange(2);
+		MarsRover rover = marsRoverLazer.configureLaserRange(2);
 		marsRoverLazer.move("s");
 
 		Assertions.assertThat(marsRoverLazer.move(command)).as("going through with lazer attack north on obstacle")
@@ -680,6 +680,22 @@ public class MarsRoverTest {
 		LocalMap localMap = new LocalMap();
 		assertEquals(playerLoadingFalse.loadingPlayer("player", localMap), false);
 	}
+	
+	//Try Loading a player not existing in a set of rover
+	@Test
+	void isPlayerLoadingFalse() {
+		LoadPlayer playerLoadingOnSetFalse = new LoadPlayer();
+		LocalMap localMap = new LocalMap();
+		playerLoadingOnSetFalse.createPlayer("player1", localMap);
+		assertEquals(playerLoadingOnSetFalse.loadingPlayer("player", localMap), false);
+	}
+	
+	void isAnameFreeInAsetTrue() {
+		LoadPlayer loadPlayer = new LoadPlayer();
+		LocalMap localMap = new LocalMap();
+		loadPlayer.createPlayer("", localMap);
+		assertEquals(loadPlayer.isPlayerNameFree("player", localMap), true);
+	}
 
 	//Test place is occupated should be true if something is in x,y
 	@Test
@@ -689,7 +705,7 @@ public class MarsRoverTest {
 	    assertEquals(localMap.isPlaceOccupated(1,1, null), true);
     }
 
-    //Test place is occupated should be false if something is in x,y
+    //Test place is occupated should be false if nothing is in x,y
     @Test
     void isPlaceOccupatedFalse() {
         LocalMap localMap = new LocalMap();
