@@ -28,7 +28,7 @@ public class MarsRoverTest {
 		MarsRoverImp marsRover = new MarsRoverImp();
 		marsRover.initialize(Position.of(0, 2, Direction.SOUTH));
 		Position pos = marsRover.getPosition();
-		Assertions.assertThat(pos).as("moving forward NORTH")
+		Assertions.assertThat(pos).as("test init pos")
 		.extracting(Position::getX, Position::getY, Position::getDirection)
 		.containsExactly(0, 2, Direction.SOUTH);
 	}
@@ -40,7 +40,6 @@ public class MarsRoverTest {
 		PlanetMap map = new PlanetMapImp();
 		map.obstaclePositions();
 		marsRover.updateMap(map);
-		System.out.println(marsRover.getLocalMap().getSetPos().size());
 		marsRover.move("s");
 
 		Assertions.assertThat(marsRover.move("f")).as("moving forward NORTH")
@@ -383,6 +382,7 @@ public class MarsRoverTest {
 		MarsRoverImp marsRoverLazer = new MarsRoverImp();
 		String command = "f";
 		marsRoverLazer.initialize(Position.of(0, 0, Direction.NORTH));
+		marsRoverLazer.GenerateMap(100);
 
 		// We initialize an Obstacle just ahead
 		PlanetMap map = new PlanetMapImp();
@@ -490,7 +490,7 @@ public class MarsRoverTest {
 	
 	@Test
 	void lazerAttackSouthObstacle() {
-		MarsRoverImp marsRoverLazer = new MarsRoverImp();
+		MarsRoverImp marsRoverLazer = new MarsRoverImp("player");
 		String command = "f";
 
 		// We initialize the Rover for test
@@ -502,11 +502,9 @@ public class MarsRoverTest {
 		marsRoverLazer.move("r");
 
 		// We initialize an Obstacle just ahead
-		PlanetMap map = new PlanetMapImp();
-		map.obstaclePositions();
-		marsRoverLazer.updateMap(map);
-		marsRoverLazer.getLocalMap().fillListObstacle(0,-2);
-		marsRoverLazer.getLocalMap().fillListObstacle(0,-1);
+		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(0, -2, localMap);
+		map.setObstacleForTest(0, -1, localMap);
 
 		marsRoverLazer.configureLaserRange(2);
 		marsRoverLazer.move("s");
@@ -565,12 +563,9 @@ public class MarsRoverTest {
 		marsRoverLazer.move("l");
 
 		// We initialize an Obstacle just ahead
-		PlanetMap map = new PlanetMapImp();
-		map.obstaclePositions();
-		marsRoverLazer.updateMap(map);
-		marsRoverLazer.getLocalMap().fillListObstacle(-2,0);
-		marsRoverLazer.getLocalMap().fillListObstacle(-1, 0);
-
+		PlanetMapImp map = new PlanetMapImp();
+		map.setObstacleForTest(-2, 0, localMap);
+		map.setObstacleForTest(-1, 0, localMap);
 
 		marsRoverLazer.configureLaserRange(2);
 		marsRoverLazer.move("s");
@@ -657,7 +652,7 @@ public class MarsRoverTest {
 	void isCreatePlayerTrue() {	
 		LoadPlayer playerSuccess = new LoadPlayer();
 		LocalMap localMap = new LocalMap();
-		assertEquals(playerSuccess.createPlayer("player"), true);
+		assertEquals(playerSuccess.createPlayer("player", localMap), true);
 	}
 
 	// Create a player shouldn't be succes if name not existing
@@ -665,8 +660,8 @@ public class MarsRoverTest {
 	void isCreatePlayerFalse() {
 		LoadPlayer playerEchec = new LoadPlayer();
 		LocalMap localMap = new LocalMap();
-		playerEchec.createPlayer("player");
-		assertEquals(playerEchec.createPlayer("player"), false);
+		playerEchec.createPlayer("player", localMap);
+		assertEquals(playerEchec.createPlayer("player", localMap), false);
 	}
 
 	// Loading a player should be success if name already exist
@@ -674,8 +669,8 @@ public class MarsRoverTest {
 	void isPlayerExistTrue() {
 		LoadPlayer playerLoadingTrue = new LoadPlayer();
 		LocalMap localMap = new LocalMap();
-		playerLoadingTrue.createPlayer("player");
-		assertEquals(playerLoadingTrue.loadingPlayer("player"), true);
+		playerLoadingTrue.createPlayer("player", localMap);
+		assertEquals(playerLoadingTrue.loadingPlayer("player", localMap), true);
 	}
 
 	// Loading a player shouldn't be success if name already exist
@@ -683,7 +678,7 @@ public class MarsRoverTest {
 	void isPlayerExistFalse() {
 		LoadPlayer playerLoadingFalse = new LoadPlayer();
 		LocalMap localMap = new LocalMap();
-		assertEquals(playerLoadingFalse.loadingPlayer("player"), false);
+		assertEquals(playerLoadingFalse.loadingPlayer("player", localMap), false);
 	}
 
 	//Test place is occupated should be true if something is in x,y
@@ -736,8 +731,8 @@ public class MarsRoverTest {
     void roverNameNotAvailable() {
     	LocalMap localMap = new LocalMap();
     	LoadPlayer load = new LoadPlayer();
-    	load.createPlayer("player");
-    	assertEquals(load.createPlayer("player"), false);
+    	load.createPlayer("player", localMap);
+    	assertEquals(load.createPlayer("player",localMap), false);
     }
     
     //Test filling LocalMap fillListRover function
@@ -780,7 +775,7 @@ public class MarsRoverTest {
     	marsRover.setStatus(true);
     	
     	//We create 50 players and fill list obstacle with
-    	for (int i=0; i<50; i++) {
+    	for (int i=0; i<51; i++) {
     		String name = "player"+i;
     		MarsRoverImp rover = new MarsRoverImp(name);
     		rover.setX(i);
@@ -807,7 +802,7 @@ public class MarsRoverTest {
     	localMap.fillListObstacle(1, 1);
     	assertEquals(localMap.fillListObstacle(1, 1), false);
     }
-    /* TODO
+    
     //JsonRadar Ennemy test
     @Test
     void jsonRadarEnnemy() throws Exception {
@@ -832,7 +827,7 @@ public class MarsRoverTest {
     	localMap.fillListObstacle(0, 2);
     	
     	LoadPlayer load = new LoadPlayer();
-    	load.loadingPlayer("player");
+    	load.loadingPlayer("player", localMap);
     	
     	JSONArray expectedEnnemy = new JSONArray().put(new JSONObject()
     			.put("x", 0)
@@ -858,17 +853,18 @@ public class MarsRoverTest {
     			.put("player", expectedPlayer)
     			.put("localmap", expectedRadar);
     				
-    	assertEquals(load.getJSONResponse(), expectedFinal.toString());
+    	assertEquals(load.getJSONResponse(localMap), expectedFinal.toString());
     }
     
     //Test moving rover from LoadPlayer class which represent the current player
     @Test
     void movePlayer() {
+    	LocalMap localMap = new LocalMap();
     	LoadPlayer load = new LoadPlayer();
-    	load.createPlayer("player");
+    	load.createPlayer("player", localMap);
     	MarsRoverImp marsRover = new MarsRoverImp();
     	int y=0;
-    	for (MarsRoverImp rov : marsRover.getLocalMap().getSetRover()) {
+    	for (MarsRoverImp rov : localMap.getSetRover()) {
     		if (rov.getName().equals("player")) {
     		marsRover = rov;
     		y=marsRover.getY();
@@ -877,7 +873,4 @@ public class MarsRoverTest {
     	load.moveRover("f");
     	assertEquals(marsRover.getY(), y+1);
     }
-    */
-    
 }
-
