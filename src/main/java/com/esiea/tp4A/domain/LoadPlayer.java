@@ -3,18 +3,25 @@ package com.esiea.tp4A.domain;
 import com.esiea.tp4A.spring.JSONCreator;
 
 public class LoadPlayer {
-	private  MarsRoverImp marsRover;
+	
+	/**
+	 * MarsRover object is not final because we will either create it or load it
+	 */
+	private  MarsRoverImp marsRover = new MarsRoverImp();
 	private final PartySettings party = new PartySettings();
 	private final JSONCreator responseJson = new JSONCreator();
 	private final int lazerRange = party.setLazerRange();
 	private final int mapSize =  party.generateSizeMap();
+	private final PlanetMap map = new PlanetMapImp();
+	private final PlanetMapImp mapImp = new PlanetMapImp();
+	private final LocalMap localMap = mapImp.getLocalMap();
 
-	public boolean createPlayer(String name, LocalMap localMap) {
-		if (isPlayerNameFree(name, localMap) == false) {
+	public boolean createPlayer(String name) {
+		marsRover = new MarsRoverImp(name);
+		if (isPlayerNameFree(name) == false) {
 			return false;
 		}
-		marsRover = new MarsRoverImp(name);
-		setPartySettings(localMap);
+		setPartySettings();
 		boolean ret = party.generatePlayerPosition(mapSize, localMap, marsRover) ? true : false;
 		if (ret) {
 			localMap.fillListRover(marsRover);
@@ -22,16 +29,14 @@ public class LoadPlayer {
 		return ret;
 	}
 	
-	public void setPartySettings(LocalMap localMap) {
-		if (localMap.getSetRover().isEmpty()) {
-			party.generateObstacle(mapSize, localMap);
-		}
+	public void setPartySettings() {
+		map.obstaclePositions();
+		marsRover.updateMap(map);
 		marsRover.GenerateMap(mapSize);
-		marsRover.setLocalMap(localMap);
 		marsRover.configureLaserRange(lazerRange);
 	}
 	
-	public boolean isPlayerNameFree(String name, LocalMap localMap) {
+	public boolean isPlayerNameFree(String name) {
 		for (MarsRoverImp rov : localMap.getSetRover()) {
 			if (rov.getName().equals(name)) {
 				return false;
@@ -40,11 +45,11 @@ public class LoadPlayer {
 		return true;
 	}
 	
-	public boolean loadingPlayer(String name, LocalMap localMap) {
+	public boolean loadingPlayer(String name) {
 		boolean bReturn=false;
 		for (MarsRoverImp rov : localMap.getSetRover()) {
 			if (rov.getName().equals(name)) {
-				marsRover =rov;
+				marsRover = rov;
 				return true;
 			} else {
 				bReturn = false;
@@ -57,7 +62,7 @@ public class LoadPlayer {
 		this.marsRover.move(command);
 	}
 
-	public String getJSONResponse(LocalMap localMap) throws Exception {
+	public String getJSONResponse() throws Exception {
 		return responseJson.returnJson(marsRover,localMap).toString();
 	}
 
