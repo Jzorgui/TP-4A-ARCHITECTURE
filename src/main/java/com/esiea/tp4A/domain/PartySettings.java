@@ -32,10 +32,11 @@ public class PartySettings {
 		return mapSize;
 	}
 
-	public int generateObstacle(int mapSize) {
+	public void generateObstacle(int mapSize, LocalMap localMap) {
 		double dObstacleNumber = mapSize * 0.15;
 		int obstacleNumber = (int) dObstacleNumber;
-		return obstacleNumber;
+		PlanetMapImp p = new PlanetMapImp();
+		p.setObstacleNumber(obstacleNumber, mapSize, localMap);
 	}
 
 	public boolean generatePlayerPosition(int mapSize, LocalMap localMap, MarsRoverImp marsRover) {

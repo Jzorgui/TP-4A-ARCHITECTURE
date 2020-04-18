@@ -1,14 +1,11 @@
 package com.esiea.tp4A.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MarsRoverImp implements MarsRover {
-	
-	/* Attribute */
+
+	// Attribute
 	private String name;
 	private int lazerRange = 0;
 	private boolean status = true;
@@ -18,30 +15,31 @@ public class MarsRoverImp implements MarsRover {
 	private LocalMap localMap;
 	private final MarsRoverMove roverMove = new MarsRoverMove();
 	private final MarsRoverFunction roverFunc = new MarsRoverFunction();
-	private final PlanetMapImp mapImp = new PlanetMapImp();
-	/* MapRange */
+	
+	// MapRange
 	private int xMaxMap, yMaxMap, xMinMap, yMinMap;
 
-	/* Constructors */
+	// Constructors
 	public MarsRoverImp(String name) {
 		this.name = name;
 	}
 
-	/* Test Contructor */
 	public MarsRoverImp() {
-		localMap = new LocalMap();
+		this.name="";
+		this.localMap = new LocalMap();
 		this.GenerateMap(100);
 		this.setX(x);
 		this.setY(y);
-		this.setPosition(Position.of(x, y, direction));
 		this.configureLaserRange(3);
 		this.setStatus(true);
 	}
 
-	/* Getters and Setters */public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
+	// Getters and Setters
 
+	public void setDirection(Direction direction) {
+		this.direction=direction;
+	}
+	
 	public void setLocalMap(LocalMap localMap) {
 		this.localMap = localMap;
 	}
@@ -110,7 +108,6 @@ public class MarsRoverImp implements MarsRover {
 		return yMinMap;
 	}
 
-
 	// Functions
 	@Override
 	public Position move(String command) {
@@ -123,6 +120,7 @@ public class MarsRoverImp implements MarsRover {
 		case "b":
 			roverMove.moveBack(direction, this);
 			break;
+
 		case "l":
 			roverMove.turnLeft(direction, this);
 			break;
@@ -142,6 +140,7 @@ public class MarsRoverImp implements MarsRover {
 			y = initialY;
 		}
 		position = Position.of(x, y, direction);
+
 		return position;
 	}
 
@@ -180,21 +179,9 @@ public class MarsRoverImp implements MarsRover {
 		return mapRadar;
 	}
 	
-	@Override 
-	public MarsRover initialize(Position pos) {
-		this.setX(pos.getX());
-		this.setY(pos.getY());
-		this.setPosition(pos);
-		return this;
-	}
-	
 	@Override
 	public MarsRover updateMap(PlanetMap map) {
-		localMap = mapImp.getLocalMap();
-		for (Position pos : map.obstaclePositions()) {
-			localMap.fillListObstacle(pos.getX(), pos.getY());
-		}
-		return this;
+		return null;
 	}
 
 	@Override
@@ -202,4 +189,13 @@ public class MarsRoverImp implements MarsRover {
 		lazerRange = range;
 		return this;
 	}
+	
+	 @Override 
+	 public MarsRover initialize(Position pos) {
+		 this.setX(pos.getX());
+		 this.setY(pos.getY());
+		 this.setDirection(pos.getDirection());
+		 position= pos;
+		 return this;
+	 }
 }
