@@ -2,6 +2,7 @@ package com.esiea.tp4A.spring;
 
 import org.springframework.http.HttpStatus;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,10 @@ import com.esiea.tp4A.domain.LocalMap;
 @Controller
 public class SpringController {
 	
-	private final LoadPlayer load = new LoadPlayer();
+	/**
+	 * load object is not final because it will change depending the player
+	 */
+	private LoadPlayer load = new LoadPlayer();
 	private final LocalMap localMap = new LocalMap();
 
 	@PostMapping(path = "/api/player/{playerName}", produces = "application/json")
