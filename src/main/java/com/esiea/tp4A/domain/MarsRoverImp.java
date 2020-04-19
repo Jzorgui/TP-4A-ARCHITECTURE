@@ -160,12 +160,11 @@ public class MarsRoverImp implements MarsRover {
 		return mapRadar;
 	}
 	
-	@Override
-	public MarsRover updateMap(PlanetMap map) {
-		map.obstaclePositions().add(Position.of(0, 0, Direction.NORTH));
-		map.obstaclePositions().add(Position.of(0, 0, Direction.NORTH));
-		System.out.println(map.obstaclePositions().size());
-		return null;
+	public MarsRover updateMap(PlanetMapImp map) {
+		for (Position pos : map.getSetPos()) {
+		this.localMap.fillListObstacle(pos.getX(), pos.getY());
+		}
+		return this;
 	}
 
 	@Override
