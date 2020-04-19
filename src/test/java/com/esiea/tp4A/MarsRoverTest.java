@@ -11,7 +11,6 @@ import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.PlanetMapImp;
 import com.esiea.tp4A.domain.Position;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.assertj.core.api.Assertions;
 import org.json.JSONArray;
 import org.json.JSONObject;
