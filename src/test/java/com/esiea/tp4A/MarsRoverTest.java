@@ -10,12 +10,7 @@ import com.esiea.tp4A.domain.PartySettings;
 import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.PlanetMapImp;
 import com.esiea.tp4A.domain.Position;
-import com.esiea.tp4A.spring.JSONCreator;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import org.assertj.core.api.Assertions;
 import org.json.JSONArray;
