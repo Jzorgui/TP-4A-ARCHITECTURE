@@ -30,7 +30,7 @@ public class PartySettings {
 	}
 
 	public void generateObstacle(int mapSize, LocalMap localMap) {
-		double dObstacleNumber = mapSize * 0.15;
+		double dObstacleNumber = mapSize* mapSize * 0.15;
 		int obstacleNumber = (int) dObstacleNumber;
 		PlanetMapImp p = new PlanetMapImp();
 		p.setObstacleNumber(obstacleNumber, mapSize, localMap);
