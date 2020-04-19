@@ -3,6 +3,9 @@ package com.esiea.tp4A.domain;
 import com.esiea.tp4A.spring.JSONCreator;
 
 public class LoadPlayer {
+	/**
+	 * marsRover not final because it will be either created either loaded
+	 */
 	private  MarsRoverImp marsRover;
 	private final PartySettings party = new PartySettings();
 	private final JSONCreator responseJson = new JSONCreator();
@@ -16,9 +19,7 @@ public class LoadPlayer {
 		marsRover = new MarsRoverImp(name);
 		setPartySettings(localMap);
 		boolean ret = party.generatePlayerPosition(mapSize, localMap, marsRover) ? true : false;
-		if (ret) {
-			localMap.fillListRover(marsRover);
-		}
+		if(ret) localMap.fillListRover(marsRover);
 		return ret;
 	}
 	
@@ -41,16 +42,13 @@ public class LoadPlayer {
 	}
 	
 	public boolean loadingPlayer(String name, LocalMap localMap) {
-		boolean bReturn=false;
 		for (MarsRoverImp rov : localMap.getSetRover()) {
 			if (rov.getName().equals(name)) {
 				marsRover =rov;
 				return true;
-			} else {
-				bReturn = false;
-			}
+			} 
 		}
-		return bReturn;
+		return false;
 	}
 	
 	public void moveRover(String command) {

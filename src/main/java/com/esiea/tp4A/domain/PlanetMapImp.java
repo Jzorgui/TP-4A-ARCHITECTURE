@@ -15,7 +15,6 @@ public class PlanetMapImp implements PlanetMap {
 
 	@Override
 	public Set<Position> obstaclePositions() {
-		System.out.println("nombre d'obstacle  : "+obstacleNumber);
 		for (int i = 0; i < obstacleNumber; i++) {
 			bCreat=false;
 			while (bCreat == false) {

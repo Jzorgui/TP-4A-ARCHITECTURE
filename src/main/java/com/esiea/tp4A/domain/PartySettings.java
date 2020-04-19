@@ -11,12 +11,9 @@ public class PartySettings {
 		int randLazer = rand.nextInt(3);
 		int lazerRange=0;
 		switch (randLazer) {
-		case 0:
-			lazerRange = 5; break;
-		case 1:
-			lazerRange = 30; break;
-		case 2:
-			lazerRange = 10000; break;
+		case 0: lazerRange = 5; break;
+		case 1: lazerRange = 30; break;
+		case 2: lazerRange = 10000; break;
 		}
 		return lazerRange;
 	}
