@@ -93,6 +93,9 @@ public class MarsRoverImp implements MarsRover {
 	// Functions
 	@Override
 	public Position move(String command) {
+		if(localMap == null) {
+			localMap = new LocalMap();
+		}
 		int initialX = x;
 		int initialY = y;
 		switch (command) {
@@ -159,6 +162,9 @@ public class MarsRoverImp implements MarsRover {
 	
 	@Override
 	public MarsRover updateMap(PlanetMap map) {
+		map.obstaclePositions().add(Position.of(0, 0, Direction.NORTH));
+		map.obstaclePositions().add(Position.of(0, 0, Direction.NORTH));
+		System.out.println(map.obstaclePositions().size());
 		return null;
 	}
 
