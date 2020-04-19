@@ -21,7 +21,12 @@ public class MarsRoverImp implements MarsRover {
 
 	// Constructors
 	public MarsRoverImp(String name) {
+		this.localMap = new LocalMap();
+		this.GenerateMap(100);
 		this.name = name;
+		this.setX(x);
+		this.setY(y);
+		this.configureLaserRange(3);
 	}
 
 	public MarsRoverImp() {
@@ -93,9 +98,6 @@ public class MarsRoverImp implements MarsRover {
 	// Functions
 	@Override
 	public Position move(String command) {
-		if(localMap == null) {
-			localMap = new LocalMap();
-		}
 		int initialX = x;
 		int initialY = y;
 		switch (command) {
