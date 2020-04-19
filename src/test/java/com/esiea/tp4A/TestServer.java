@@ -1,6 +1,8 @@
 package com.esiea.tp4A;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.ResponseEntity;
@@ -86,4 +88,15 @@ public class TestServer
          
         assertThat(responseEntity1.getStatusCodeValue()).isEqualTo(404);
     }
+    
+    @Test
+    public void testHtml() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+        
+        String responseEntity1 = controller.first();
+        assertEquals(responseEntity1,"pages/web");
+         
+    }
+    
 }
