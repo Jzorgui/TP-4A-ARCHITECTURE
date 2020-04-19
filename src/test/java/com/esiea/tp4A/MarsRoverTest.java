@@ -10,6 +10,7 @@ import com.esiea.tp4A.domain.PartySettings;
 import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.PlanetMapImp;
 import com.esiea.tp4A.domain.Position;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.assertj.core.api.Assertions;
 import org.json.JSONArray;
@@ -17,15 +18,55 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 public class MarsRoverTest {
-
+	
+	@Test
+	void roverPos() {
+		MarsRover rover = new MarsRoverImp();
+		rover.move("f");
+		rover.move("f");
+		rover.move("l");
+		Assertions.assertThat(rover.move("b")).as("test init pos")
+		.extracting(Position::getX, Position::getY, Position::getDirection)
+		.containsExactly(1, 2, Direction.WEST);
+	}
+	
+	@Test
+	void roverPos2() {
+		MarsRover rover = new MarsRoverImp();
+		for (int i=0; i<50; i++) {
+			rover.move("f");
+		}
+		Assertions.assertThat(rover.move("f")).as("test init pos")
+		.extracting(Position::getX, Position::getY, Position::getDirection)
+		.containsExactly(0, -50, Direction.NORTH);
+	}
+	
+	@Test
+	void roverPos3() {
+		MarsRover rover = new MarsRoverImp();
+		rover.initialize(Position.of(3, 3, Direction.EAST));
+		Assertions.assertThat(rover.move("f")).as("test init pos")
+		.extracting(Position::getX, Position::getY, Position::getDirection)
+		.containsExactly(4, 3, Direction.EAST);
+	}
+	
 	@Test
 	void initializeRoverPos() {
-		MarsRoverImp marsRover = new MarsRoverImp();
-		MarsRover rover = marsRover.initialize(Position.of(0, 2, Direction.SOUTH));
-		Position pos = marsRover.getPosition();
-		Assertions.assertThat(pos).as("test init pos")
+		MarsRover rover = new MarsRoverImp();
+		rover = rover.initialize(Position.of(0, 2, Direction.SOUTH));
+		Assertions.assertThat(rover.move("f")).as("test init pos")
 		.extracting(Position::getX, Position::getY, Position::getDirection)
-		.containsExactly(0, 2, Direction.SOUTH);
+		.containsExactly(0, 1, Direction.SOUTH);
+	}
+	
+	@Test
+	void roverInterface() {
+		MarsRover rover = new MarsRoverImp();
+		rover.initialize(Position.of(0, 0, Direction.NORTH));
+		rover.configureLaserRange(2);
+		Assertions.assertThat(rover.move("f")).as("moving forward NORTH")
+				.extracting(Position::getX, Position::getY, Position::getDirection)
+				.containsExactly(0, 1, Direction.NORTH);
 	}
 	
 	@Test
@@ -361,9 +402,6 @@ public class MarsRoverTest {
 		String command = "f";
 		marsRoverObstacle.initialize(Position.of(0, 0, Direction.NORTH));
 		// We initialize an Obstacle just ahead
-		PlanetMap map = new PlanetMapImp();
-		map.obstaclePositions();
-		marsRoverObstacle.updateMap(map);
 		marsRoverObstacle.getLocalMap().fillListObstacle(0, 1);
 
 		Assertions.assertThat(marsRoverObstacle.move(command)).as("going through obstacle")
@@ -379,9 +417,6 @@ public class MarsRoverTest {
 		marsRoverLazer.GenerateMap(100);
 
 		// We initialize an Obstacle just ahead
-		PlanetMap map = new PlanetMapImp();
-		map.obstaclePositions();
-		marsRoverLazer.updateMap(map);
 		marsRoverLazer.getLocalMap().fillListObstacle(0, 1);
 
 		MarsRover rover = marsRoverLazer.configureLaserRange(2);
@@ -434,9 +469,6 @@ public class MarsRoverTest {
 		marsRoverLazer.move("r");
 
 		// We initialize an Obstacle just ahead
-		PlanetMap map = new PlanetMapImp();
-		map.obstaclePositions();
-		marsRoverLazer.updateMap(map);
 		marsRoverLazer.getLocalMap().fillListObstacle(2, 0);
 		marsRoverLazer.getLocalMap().fillListObstacle(1, 0);
 
